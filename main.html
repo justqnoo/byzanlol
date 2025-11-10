@@ -1,1037 +1,897 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="icon" href="https://img.icons8.com/color/48/google-classroom.png" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        html, body {
-            height: 100%;
-            width: 100%;
-            overflow-x: hidden;
-        }
-
-        body {
-            background: linear-gradient(135deg, #1a0a2e, #2c0a47, #1a0a2e);
-            color: white;
-            position: relative;
-            min-height: 100vh;
-            transition: background 0.5s ease; 
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(circle at 10% 20%, rgba(101, 45, 147, 0.15) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(101, 45, 147, 0.15) 0%, transparent 20%),
-                radial-gradient(circle at 50% 50%, rgba(101, 45, 147, 0.1) 0%, transparent 30%);
-            z-index: -1;
-            transition: background 0.5s ease;
-        }
-
-        body.blue-theme {
-            background: linear-gradient(135deg, #001f3f, #003366, #001f3f);
-        }
-
-        body.blue-theme::before {
-            background:
-                radial-gradient(circle at 10% 20%, rgba(0, 80, 160, 0.15) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(0, 80, 160, 0.15) 0%, transparent 20%),
-                radial-gradient(circle at 50% 50%, rgba(0, 80, 160, 0.1) 0%, transparent 30%);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, #2c0a47, #1a0a2e);
-            color: white;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 800px;
-            box-shadow: 0 0 30px rgba(106, 13, 173, 0.7);
-            border: 1px solid rgba(147, 112, 219, 0.5);
-            overflow: hidden;
-            transition: background 0.5s ease, border-color 0.5s ease; 
-        }
-
-        body.blue-theme .modal-content {
-            background: linear-gradient(135deg, #003366, #001f3f);
-            border-color: rgba(0, 100, 200, 0.5);
-            box-shadow: 0 0 30px rgba(0, 80, 160, 0.7);
-        }
-
-        .modal-header {
-            display: flex;
-            background: rgba(40, 20, 60, 0.9);
-            border-bottom: 2px solid rgba(147, 112, 219, 0.3);
-            transition: background 0.5s ease, border-color 0.5s ease;
-        }
-
-        body.blue-theme .modal-header {
-            background: rgba(0, 40, 80, 0.9);
-            border-bottom-color: rgba(0, 100, 200, 0.3);
-        }
-
-        .tab-button {
-            flex: 1;
-            padding: 15px;
-            background: linear-gradient(135deg, #2c0a47, #1a0a2e);
-            border: 1px solid rgba(147, 112, 219, 0.3);
-            color: white;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background 0.3s, border-color 0.3s;
-        }
-
-        body.blue-theme .tab-button {
-            background: linear-gradient(135deg, #003366, #001f3f);
-            border-color: rgba(0, 100, 200, 0.3);
-        }
-
-        .tab-button.active {
-            background: linear-gradient(135deg, #1a0a2e, #2c0a47);
-            border-color: rgba(147, 112, 219, 0.7);
-        }
-
-        body.blue-theme .tab-button.active {
-            background: linear-gradient(135deg, #001f3f, #003366);
-            border-color: rgba(0, 100, 200, 0.7);
-        }
-
-        .tab-button:hover:not(.active) {
-            background: linear-gradient(135deg, #3a1a57, #2c0a47);
-            border-color: rgba(147, 112, 219, 0.5);
-        }
-
-        body.blue-theme .tab-button:hover:not(.active) {
-            background: linear-gradient(135deg, #004488, #003366);
-            border-color: rgba(0, 100, 200, 0.5);
-        }
-
-        .tab-content {
-            display: none;
-            padding: 25px;
-            max-height: 60vh;
-            overflow-y: auto;
-            background: rgba(30, 15, 50, 0.5);
-        }
-
-        body.blue-theme .tab-content {
-            background: rgba(0, 30, 60, 0.5);
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            background: linear-gradient(135deg, #2c0a47, #1a0a2e);
-            border: 1px solid rgba(147, 112, 219, 0.3);
-            color: white;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s, border-color 0.3s;
-        }
-
-        body.blue-theme .close-modal {
-            background: linear-gradient(135deg, #003366, #001f3f);
-            border-color: rgba(0, 100, 200, 0.3);
-        }
-
-        .close-modal:hover {
-            background: linear-gradient(135deg, #3a1a57, #2c0a47);
-            border-color: rgba(147, 112, 219, 0.5);
-        }
-
-        body.blue-theme .close-modal:hover {
-            background: linear-gradient(135deg, #004488, #003366);
-            border-color: rgba(0, 100, 200, 0.5);
-        }
-
-        /* Updated Warning Modal Styles */
-        .warning-modal-content {
-            background: linear-gradient(135deg, #2c0a47, #1a0a2e);
-            color: white;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 0 30px rgba(106, 13, 173, 0.7);
-            border: 1px solid rgba(147, 112, 219, 0.5);
-            padding: 20px;
-            text-align: center;
-            z-index: 2001;
-        }
-
-        body.blue-theme .warning-modal-content {
-            background: linear-gradient(135deg, #003366, #001f3f);
-            border-color: rgba(0, 100, 200, 0.5);
-            box-shadow: 0 0 30px rgba(0, 80, 160, 0.7);
-        }
-
-        /* Changed warning title color to blue theme color */
-        .warning-modal-content h2 {
-            margin-top: 0;
-            /* Use the blue theme color instead of red */
-            color: #44aaff; /* This matches the blue theme's secondary color */
-            font-size: 1.8rem;
-            /* Optional: Add glow effect similar to header */
-            text-shadow: 0 0 10px rgba(68, 170, 255, 0.5), 0 0 20px rgba(68, 170, 255, 0.8);
-        }
-
-        body.blue-theme .warning-modal-content h2 {
-            color: #44aaff; /* Keeps the blue color */
-            text-shadow: 0 0 10px rgba(68, 170, 255, 0.5), 0 0 20px rgba(68, 170, 255, 0.8);
-        }
-
-        .warning-modal-content p {
-            margin: 15px 0;
-            font-size: 1.1rem;
-            line-height: 1.5;
-        }
-
-        .warning-close-btn {
-            background: linear-gradient(135deg, #2c0a47, #1a0a2e);
-            border: 1px solid rgba(147, 112, 219, 0.3);
-            color: white;
-            cursor: pointer;
-            padding: 10px 25px;
-            font-size: 1rem;
-            border-radius: 30px;
-            margin-top: 15px;
-            transition: background 0.3s, border-color 0.3s;
-        }
-
-        body.blue-theme .warning-close-btn {
-            background: linear-gradient(135deg, #003366, #001f3f);
-            border-color: rgba(0, 100, 200, 0.3);
-        }
-
-        .warning-close-btn:hover {
-            background: linear-gradient(135deg, #3a1a57, #2c0a47);
-            border-color: rgba(147, 112, 219, 0.5);
-        }
-
-        body.blue-theme .warning-close-btn:hover {
-            background: linear-gradient(135deg, #004488, #003366);
-            border-color: rgba(0, 100, 200, 0.5);
-        }
-
-
-        .color-presets {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-
-        .color-preset {
-            width: 100px;
-            height: 60px;
-            border-radius: 8px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .color-preset:hover {
-            transform: scale(1.05);
-        }
-
-        .color-preset.selected {
-            border-color: white;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        .current-gradient {
-            background: linear-gradient(135deg, #1a0a2e, #2c0a47, #1a0a2e);
-        }
-
-        .blue-gradient {
-            background: linear-gradient(135deg, #001f3f, #003366, #001f3f);
-        }
-
-        .patch-notes-list {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .patch-notes-list li {
-            margin-bottom: 15px;
-            padding: 15px;
-            background: rgba(50, 25, 70, 0.5);
-            border-radius: 8px;
-            border-left: 4px solid #9370db; 
-        }
-
-        body.blue-theme .patch-notes-list li {
-            background: rgba(0, 50, 100, 0.5);
-            border-left-color: #0088ff; 
-        }
-
-        .patch-version {
-            display: block;
-            font-weight: bold;
-            color: #d4afdd; 
-            margin-bottom: 5px;
-        }
-
-        body.blue-theme .patch-version {
-            color: #66ccff;
-        }
-
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: #9370db;
-        }
-
-        body.blue-theme input:checked + .slider {
-            background-color: #0088ff;
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(26px);
-        }
-
-        .patch-notes-section {
-            display: none; 
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(50, 25, 70, 0.5);
-            border-radius: 8px;
-        }
-
-        body.blue-theme .patch-notes-section {
-            background: rgba(0, 50, 100, 0.5);
-        }
-
-        #viewPatchNotesBtn {
-            margin-top: 15px;
-            background: linear-gradient(135deg, #2c0a47, #1a0a2e);
-            padding: 10px 15px;
-            border-radius: 30px;
-            border: 1px solid rgba(147, 112, 219, 0.4);
-            color: white;
-            cursor: pointer;
-            z-index: 1000;
-            transition: background 0.3s, border-color 0.3s;
-        }
-
-        body.blue-theme #viewPatchNotesBtn {
-            background: linear-gradient(135deg, #003366, #001f3f);
-            border-color: rgba(0, 100, 200, 0.4); 
-        }
-
-        #viewPatchNotesBtn:hover {
-            background: linear-gradient(135deg, #3a1a57, #2c0a47); 
-            border-color: rgba(147, 112, 219, 0.5);
-        }
-
-        body.blue-theme #viewPatchNotesBtn:hover {
-            background: linear-gradient(135deg, #004488, #003366);
-            border-color: rgba(0, 100, 200, 0.5);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            z-index: 2;
-        }
-
-        header {
-            text-align: center;
-            padding: 30px 0;
-            margin-bottom: 20px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        h1 {
-            font-size: 3.2rem;
-            margin-bottom: 10px;
-            text-shadow: 0 0 15px rgba(106, 13, 173, 0.7); 
-            background: linear-gradient(to right, #d4afdd, #b19cd9, #9370db);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: white; 
-            position: relative;
-            display: inline-block;
-        }
-
-        body.blue-theme h1 {
-            text-shadow: 0 0 15px rgba(0, 80, 160, 0.7); 
-            background: linear-gradient(to right, #66ccff, #44aaff, #0088ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: white; 
-        }
-
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(to right, transparent, #9370db, transparent);
-            border-radius: 2px;
-        }
-
-        body.blue-theme h1::after {
-            background: linear-gradient(to right, transparent, #0088ff, transparent);
-        }
-
-        .subtitle {
-            font-size: 1.3rem;
-            opacity: 0.8;
-            margin-top: 15px;
-            animation: pulse 3s infinite;
-        }
-
-        .game-sections {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            flex-grow: 1;
-            margin-top: 10px;
-        }
-
-        .section {
-            background: rgba(30, 15, 50, 0.6);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(147, 112, 219, 0.3);
-            position: relative;
-            transform: translateY(0);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        body.blue-theme .section {
-            background: rgba(0, 30, 60, 0.6);
-            border-color: rgba(0, 100, 200, 0.3);
-        }
-
-        .section:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 35px rgba(147, 112, 219, 0.4);
-            border-color: rgba(147, 112, 219, 0.7);
-        }
-
-        body.blue-theme .section:hover {
-            box-shadow: 0 15px 35px rgba(0, 100, 200, 0.4);
-            border-color: rgba(0, 100, 200, 0.7);
-        }
-
-        .section-header {
-            background: rgba(40, 20, 60, 0.8);
-            padding: 18px;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: 600;
-            border-bottom: 2px solid rgba(147, 112, 219, 0.3);
-            position: relative;
-        }
-
-        body.blue-theme .section-header {
-            background: rgba(0, 40, 80, 0.8);
-            border-bottom-color: rgba(0, 100, 200, 0.3);
-        }
-
-        .section-header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 10%;
-            width: 80%;
-            height: 2px;
-            background: linear-gradient(to right, transparent, #9370db, transparent);
-            border-radius: 2px;
-        }
-
-        body.blue-theme .section-header::after {
-            background: linear-gradient(to right, transparent, #0088ff, transparent);
-        }
-
-        .games-grid {
-            padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
-        }
-
-        .game-card {
-            background: rgba(50, 25, 70, 0.7);
-            border-radius: 12px;
-            padding: 18px;
-            margin-bottom: 18px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(147, 112, 219, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        body.blue-theme .game-card {
-            background: rgba(0, 50, 100, 0.7);
-            border-color: rgba(0, 100, 200, 0.2);
-        }
-
-        .game-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(147, 112, 219, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        body.blue-theme .game-card::before {
-            background: linear-gradient(90deg, transparent, rgba(0, 100, 200, 0.2), transparent);
-        }
-
-        .game-card:hover {
-            background: rgba(70, 35, 90, 0.85);
-            transform: scale(1.03);
-            box-shadow: 0 5px 15px rgba(147, 112, 219, 0.3);
-        }
-
-        body.blue-theme .game-card:hover {
-            background: rgba(0, 70, 140, 0.85);
-            box-shadow: 0 5px 15px rgba(0, 100, 200, 0.3);
-        }
-
-        .game-title {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            font-weight: 600;
-        }
-
-        .game-title i {
-            margin-right: 12px;
-            font-size: 1.4rem;
-            color: #b19cd9;
-        }
-
-        body.blue-theme .game-title i {
-            color: #44aaff;
-        }
-
-        .game-desc {
-            font-size: 0.95rem;
-            opacity: 0.8;
-            line-height: 1.5;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: auto;
-            padding: 25px;
-            opacity: 0.7;
-            font-size: 1rem;
-            border-top: 1px solid rgba(147, 112, 219, 0.2);
-        }
-
-        body.blue-theme footer {
-            border-top-color: rgba(0, 100, 200, 0.2);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-
-        @keyframes pulse-border {
-            0%, 100% { box-shadow: 0 0 15px rgba(147, 112, 219, 0.3); }
-            50% { box-shadow: 0 0 25px rgba(147, 112, 219, 0.6); }
-        }
-
-        body.blue-theme @keyframes pulse-border {
-            0%, 100% { box-shadow: 0 0 15px rgba(0, 100, 200, 0.3); }
-            50% { box-shadow: 0 0 25px rgba(0, 100, 200, 0.6); }
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 5px rgba(164, 252, 164, 0.5); }
-            to { text-shadow: 0 0 20px rgba(164, 252, 164, 0.8); }
-        }
-
-        @keyframes glow-red {
-            from { text-shadow: 0 0 5px rgba(255, 107, 107, 0.5); }
-            to { text-shadow: 0 0 20px rgba(255, 107, 107, 0.8); }
-        }
-
-        @media (max-width: 768px) {
-            .games-grid {
-                grid-template-columns: 1fr;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .subtitle {
-                font-size: 1.1rem;
-            }
-
-            .container {
-                padding: 15px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home</title>
+<link rel="icon" href="https://img.icons8.com/color/48/google-classroom.png" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Poppins', sans-serif;
+}
+html, body {
+height: 100%;
+width: 100%;
+overflow-x: hidden;
+}
+body {
+background: linear-gradient(135deg, #1a0a2e, #2c0a47, #1a0a2e);
+color: white;
+position: relative;
+min-height: 100vh;
+transition: background 0.5s ease;
+}
+body::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: radial-gradient(circle at 10% 20%, rgba(101, 45, 147, 0.15) 0, transparent 20%), radial-gradient(circle at 90% 80%, rgba(101, 45, 147, 0.15) 0, transparent 20%), radial-gradient(circle at 50% 50%, rgba(101, 45, 147, 0.1) 0, transparent 30%);
+z-index: -1;
+transition: background 0.5s ease;
+}
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.2px 1.2px at 10% 20%, white 50%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 15% 35%, white 50%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 25% 60%, white 50%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 30% 85%, white 50%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 40% 15%, white 50%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 45% 50%, white 50%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 55% 75%, white 50%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 60% 30%, white 50%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 65% 90%, white 50%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 70% 5%, white 50%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 75% 40%, white 50%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 80% 70%, white 50%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 85% 25%, white 50%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 90% 65%, white 50%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 95% 10%, white 50%, transparent 50%);
+  background-size: 20% 20%;
+  animation: twinkle 5s ease-in-out infinite alternate, moveStars 60s linear infinite;
+}
+.shooting-star {
+  position: fixed;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7));
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1; /* Behind main content, above body background */
+}
+/* Animations */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+@keyframes moveStars {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(100px) rotate(2deg); } /* Subtle movement over time */
+}
+@keyframes shoot {
+  0% { transform: translateX(0) translateY(0); opacity: 0; width: 0; }
+  10% { opacity: 1; width: 5px; }
+  100% { transform: translateX(var(--tx)) translateY(var(--ty)); opacity: 0; width: 100px; }
+}
+/* --- End Starry Background CSS --- */
+.modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.8);
+z-index: 2000;
+justify-content: center;
+align-items: center;
+}
+.modal-content {
+background: linear-gradient(135deg, #2c0a47, #1a0a2e);
+color: white;
+border-radius: 15px;
+width: 90%;
+max-width: 800px;
+box-shadow: 0 0 30px rgba(106, 13, 173, 0.7);
+border: 1px solid rgba(147, 112, 219, 0.5);
+overflow: hidden;
+transition: background 0.5s ease, border-color 0.5s ease;
+}
+.modal-header {
+display: flex;
+background: rgba(40, 20, 60, 0.9);
+border-bottom: 2px solid rgba(147, 112, 219, 0.3);
+transition: background 0.5s ease, border-color 0.5s ease;
+}
+.tab-button {
+flex: 1;
+padding: 15px;
+background: linear-gradient(135deg, #2c0a47, #1a0a2e);
+border: 1px solid rgba(147, 112, 219, 0.3);
+color: white;
+font-size: 1.1rem;
+cursor: pointer;
+transition: background 0.3s, border-color 0.3s;
+}
+.tab-button.active {
+background: linear-gradient(135deg, #1a0a2e, #2c0a47);
+border-color: rgba(147, 112, 219, 0.7);
+}
+.tab-button:hover:not(.active) {
+background: linear-gradient(135deg, #3a1a57, #2c0a47);
+border-color: rgba(147, 112, 219, 0.5);
+}
+.tab-content {
+display: none;
+padding: 25px;
+max-height: 60vh;
+overflow-y: auto;
+background: rgba(30, 15, 50, 0.5);
+}
+.tab-content.active {
+display: block;
+}
+.close-modal {
+position: absolute;
+top: 15px;
+right: 20px;
+font-size: 2rem;
+background: linear-gradient(135deg, #2c0a47, #1a0a2e);
+border: 1px solid rgba(147, 112, 219, 0.3);
+color: white;
+cursor: pointer;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: background 0.3s, border-color 0.3s;
+}
+.close-modal:hover {
+background: linear-gradient(135deg, #3a1a57, #2c0a47);
+border-color: rgba(147, 112, 219, 0.5);
+}
+.warning-modal-content {
+background: linear-gradient(135deg, #2c0a47, #1a0a2e);
+color: white;
+border-radius: 15px;
+width: 90%;
+max-width: 500px;
+box-shadow: 0 0 30px rgba(106, 13, 173, 0.7);
+border: 1px solid rgba(147, 112, 219, 0.5);
+padding: 20px;
+text-align: center;
+z-index: 2001;
+}
+.warning-modal-content h2 {
+margin-top: 0;
+color: #44aaff;
+font-size: 1.8rem;
+text-shadow: 0 0 10px rgba(68, 170, 255, 0.5), 0 0 20px rgba(68, 170, 255, 0.8);
+}
+.warning-modal-content p {
+margin: 15px 0;
+font-size: 1.1rem;
+line-height: 1.5;
+}
+.warning-close-btn {
+background: linear-gradient(135deg, #2c0a47, #1a0a2e);
+border: 1px solid rgba(147, 112, 219, 0.3);
+color: white;
+cursor: pointer;
+padding: 10px 25px;
+font-size: 1rem;
+border-radius: 30px;
+margin-top: 15px;
+transition: background 0.3s, border-color 0.3s;
+}
+.warning-close-btn:hover {
+background: linear-gradient(135deg, #3a1a57, #2c0a47);
+border-color: rgba(147, 112, 219, 0.5);
+}
+.patch-notes-list {
+list-style-type: none;
+padding-left: 0;
+}
+.patch-notes-list li {
+margin-bottom: 15px;
+padding: 15px;
+background: rgba(50, 25, 70, 0.5);
+border-radius: 8px;
+border-left: 4px solid #9370db;
+}
+.patch-version {
+display: block;
+font-weight: bold;
+color: #d4afdd;
+margin-bottom: 5px;
+}
+.toggle-switch {
+position: relative;
+display: inline-block;
+width: 60px;
+height: 34px;
+}
+.toggle-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+transition: .4s;
+border-radius: 34px;
+}
+.slider:before {
+position: absolute;
+content: "";
+height: 26px;
+width: 26px;
+left: 4px;
+bottom: 4px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .slider {
+background-color: #9370db;
+}
+input:checked + .slider:before {
+transform: translateX(26px);
+}
+.patch-notes-section {
+display: none;
+margin-top: 20px;
+padding: 15px;
+background: rgba(50, 25, 70, 0.5);
+border-radius: 8px;
+}
+#viewPatchNotesBtn {
+margin-top: 15px;
+background: linear-gradient(135deg, #2c0a47, #1a0a2e);
+padding: 10px 15px;
+border-radius: 30px;
+border: 1px solid rgba(147, 112, 219, 0.4);
+color: white;
+cursor: pointer;
+z-index: 1000;
+transition: background 0.3s, border-color 0.3s;
+}
+#viewPatchNotesBtn:hover {
+background: linear-gradient(135deg, #3a1a57, #2c0a47);
+border-color: rgba(147, 112, 219, 0.5);
+}
+.container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 20px;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+position: relative;
+z-index: 2;
+}
+header {
+text-align: center;
+padding: 30px 0;
+margin-bottom: 20px;
+border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+position: relative;
+overflow: hidden;
+}
+h1 {
+font-size: 3.2rem;
+margin-bottom: 10px;
+text-shadow: 0 0 15px rgba(106, 13, 173, 0.7);
+background: linear-gradient(to right, #d4afdd, #b19cd9, #9370db);
+-webkit-background-clip: text;
+-webkit-text-fill-color: white;
+position: relative;
+display: inline-block;
+}
+h1::after {
+content: '';
+position: absolute;
+bottom: -10px;
+left: 50%;
+transform: translateX(-50%);
+width: 100px;
+height: 4px;
+background: linear-gradient(to right, transparent, #9370db, transparent);
+border-radius: 2px;
+}
+.subtitle {
+font-size: 1.3rem;
+opacity: 0.8;
+margin-top: 15px;
+animation: pulse 3s infinite;
+}
+.game-sections {
+display: flex;
+flex-direction: column;
+gap: 25px;
+flex-grow: 1;
+margin-top: 10px;
+}
+.section {
+background: rgba(30, 15, 50, 0.6);
+border-radius: 15px;
+overflow: hidden;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+transition: all 0.4s ease;
+backdrop-filter: blur(10px);
+border: 1px solid rgba(147, 112, 219, 0.3);
+position: relative;
+transform: translateY(0);
+animation: float 6s ease-in-out infinite;
+}
+.section:hover {
+transform: translateY(-10px) scale(1.03);
+box-shadow: 0 15px 35px rgba(147, 112, 219, 0.4);
+border-color: rgba(147, 112, 219, 0.7);
+}
+.section-header {
+background: rgba(40, 20, 60, 0.8);
+padding: 18px;
+text-align: center;
+font-size: 1.5rem;
+font-weight: 600;
+border-bottom: 2px solid rgba(147, 112, 219, 0.3);
+position: relative;
+}
+.section-header::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 10%;
+width: 80%;
+height: 2px;
+background: linear-gradient(to right, transparent, #9370db, transparent);
+border-radius: 2px;
+}
+.games-grid {
+padding: 20px;
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+gap: 15px;
+}
+.game-card {
+background: rgba(50, 25, 70, 0.7);
+border-radius: 12px;
+padding: 18px;
+margin-bottom: 18px;
+cursor: pointer;
+transition: all 0.3s ease;
+border: 1px solid rgba(147, 112, 219, 0.2);
+position: relative;
+overflow: hidden;
+display: flex;
+flex-direction: column;
+align-items: center;
+min-height: 220px;
+}
+.game-card::before {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(90deg, transparent, rgba(147, 112, 219, 0.2), transparent);
+transition: 0.5s;
+}
+.game-card:hover {
+background: rgba(70, 35, 90, 0.85);
+transform: scale(1.03);
+box-shadow: 0 5px 15px rgba(147, 112, 219, 0.3);
+}
+.game-icon {
+width: 100px;
+height: 100px;
+margin-bottom: 12px;
+object-fit: contain;
+border-radius: 8px;
+border: 2px solid rgba(255, 255, 255, 0.1);
+}
+.game-title {
+font-size: 1.2rem;
+margin-bottom: 8px;
+display: flex;
+align-items: center;
+font-weight: 600;
+justify-content: center;
+}
+.game-title i {
+margin-right: 12px;
+font-size: 1.4rem;
+color: #b19cd9;
+}
+.game-desc {
+font-size: 0.95rem;
+opacity: 0.8;
+line-height: 1.5;
+text-align: center;
+}
+footer {
+text-align: center;
+margin-top: auto;
+padding: 25px;
+opacity: 0.7;
+font-size: 1rem;
+border-top: 1px solid rgba(147, 112, 219, 0.2);
+}
+@keyframes float {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-15px); }
+}
+@keyframes pulse {
+0%, 100% { opacity: 0.7; }
+50% { opacity: 1; }
+}
+@keyframes pulse-border {
+0%, 100% { box-shadow: 0 0 15px rgba(147, 112, 219, 0.3); }
+50% { box-shadow: 0 0 25px rgba(147, 112, 219, 0.6); }
+}
+@keyframes glow {
+from { text-shadow: 0 0 5px rgba(164, 252, 164, 0.5); }
+to { text-shadow: 0 0 20px rgba(164, 252, 164, 0.8); }
+}
+@keyframes glow-red {
+from { text-shadow: 0 0 5px rgba(255, 107, 107, 0.5); }
+to { text-shadow: 0 0 20px rgba(255, 107, 107, 0.8); }
+}
+@media (max-width: 768px) {
+.games-grid {
+grid-template-columns: 1fr;
+}
+h1 {
+font-size: 2.5rem;
+}
+.subtitle {
+font-size: 1.1rem;
+}
+.container {
+padding: 15px;
+}
+}
+</style>
 </head>
 <body>
+<button id="openSettings" style="position: fixed; top: 20px; left: 20px; background: linear-gradient(135deg, #2c0a47, #1a0a2e); padding: 10px 15px; border-radius: 30px; border: 1px solid rgba(0, 100, 200, 0.3); color: white; cursor: pointer; z-index: 1000;">⚙️ Settings</button>
+<div id="settingsModal" class="modal">
+<div class="modal-content">
+<button class="close-modal">&times;</button>
+<div class="modal-header">
+<button class="tab-button active" data-tab="settings">Settings</button>
+</div>
+<div id="settingsTab" class="tab-content active">
+<!-- Removed Custom Color Gradient section -->
+<button id="viewPatchNotesBtn">View Patch Notes</button>
+<div id="patchNotesSection" class="patch-notes-section">
+<h3>Patch Notes</h3>
+<p>Details about the latest updates.</p>
+<ul class="patch-notes-list">
+<li>
+<span class="patch-version">v1 - November 10, 2025:</span>
+<p>Added Race Survival Arena King.</p>
+<p>Added Stars in the background</p>
+<p>Added flying shards in the background</p>
+<p>Removed Custom gradients</p>
+</li>
+<li>
+<span class="patch-version">v0.4.6 - November 8, 2025:</span>
+<p>Added Chrome Dinosaur game.</p>
+<p>Reverted the name change for lucuris.gg to byzan.lol</p>
+</li>
+<li>
+<span class="patch-version">v0.4.5 - November 7, 2025:</span>
+<p>Changed name byzan.lol to lucuris.gg</p>
+</li>
+<li>
+<span class="patch-version">v0.4.4 - November 5, 2025:</span>
+<p>Added 1 game</p>
+</li>
+<li>
+<span class="patch-version">v0.4.3 - November 5, 2025:</span>
+<p>Added 3 games</p>
+</li>
+<li>
+<span class="patch-version">v0.4.2 - November 2, 2025:</span>
+<p>Added 1 Flash game (fixed minor visual bug on the games card.)</p>
+<p>Removed Timer</p>
+</li>
+<li>
+<span class="patch-version">v0.4.1 - November 2, 2025:</span>
+<p>Added 2 games (took a mini break.)</p>
+<p>Removed Timer</p>
+</li>
+<li>
+<span class="patch-version">v0.4 - October 30, 2025:</span>
+<p>Added tons of more flash games (We now have 20+ games!)</p>
+<p>Removed Timer</p>
+</li>
+<li>
+<span class="patch-version">v0.3 - October 29, 2025:</span>
+<p>Added more games (We currently now have 10+ games!)</p>
+</li>
+<li>
+<span class="patch-version">v0.2 - October 28, 2025:</span>
+<p>Added v0.2 patch notes. fixed most issues added stuff.</p>
+</li>
+<li>
+<span class="patch-version">v0.1 - October 27, 2025:</span>
+<p>Initial release of byzan.lol homepage.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="warningModal" class="modal">
+<div class="warning-modal-content">
+<h3>Update V1</h3>
+<p>Added Race Survival Arena King.</p>
+<p>Added Stars in the background</p>
+<p>Added flying shards in the background</p>
+<p>Removed Custom gradients</p>
+<p><strong>November 10th 2025 at 6:07AM</strong></p>
+<button class="warning-close-btn">Thank you!</button>
+</div>
+</div>
+<div class="container">
+<header>
+<h1>byzan.lol</h1>
+<p class="subtitle">Go to your classes with just one click</p>
+</header>
+<div class="game-sections">
+<div class="section">
+<div class="section-header">Educational Classes</div>
+<div id="gamesGrid" class="games-grid">
+</div>
+</div>
+</div>
+<footer>
+<p>byzan.lol &copy; 2025</p>
+</footer>
+</div>
+<script>
+const gamesData = [
+{
+name: "1v1.lol",
+description: "Battle royale in a fun cartoon style",
+image: "https://lh3.googleusercontent.com/WfoG4FvWAWjZhBCxlyA2bR5fKVXsOqEDo9x49OFmT9EE6B9UA4Dakh6Ap4Wb-iPVJmNnFiU9ADOFrg-WCxbOnrig1Q=s1280-w1280-h800",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/1v1-lol.html"
+},
+{
+name: "Crazy Cattle 3D",
+description: "3D cow racing and action game (this class doesnt work with urls k? )",
+image: "https://camo.githubusercontent.com/8dc2dec0358163a850fafcd616cc6a9c8b5f4ed1a06aa499b7ca0052c1a30fe4/68747470733a2f2f6372617a79636174746c6533642e67616d65732f696d616765732f4372617a79436174746c6533442e706e67",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/crazycattle3d.html"
+},
+{
+name: "Slope",
+description: "3D ball rolling through obstacles",
+image: "https://play-lh.googleusercontent.com/FFrKIqKVpB9HMpaaF0HUc5Sza5W2sM8GFZGfkddU39xPcKCa4BYXQghoWVGlQGpaAA=w526-h296-rw",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/slope.html"
+},
+{
+name: "Gunspin",
+description: "Fast-paced gun spinning action",
+image: "https://images.dwncdn.net/images/t_app-icon-l/p/39d0a468-21ab-466d-a65b-5585c02dd7ad/15864794/gunspin-logo",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/gunspin.html"
+},
+{
+name: "Minecraft",
+description: "The Class of Minecraft is a adventrous class.",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc2yh5O1QzCR-nW9xPlj1CeRAEvKi5qvpDLA6AgLcD_euUS9m1BjwXbx13m2H2OcUzQWQ&usqp=CAU",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/minecraft.html"
+},
+{
+name: "Animal Crossing",
+description: "The Class of Animal Crossing",
+image: "https://img.icons8.com/color/48/animal-crossing.png",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/animalcrossing.html"
+},
+{
+name: "Stealing the Diamonds",
+description: "The Class of STD.",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUlw4jscH5L1CukR9RIiWEwVaxNkacicnS_UgB9HaN9rQHY6TMzOMHjqBJKkTZTbl1cZ7Mjw7SlTPLI1_FLEEpwv2KpUVM72DXkYcvvcow&s=10",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/stealingthediamonds.html"
+},
+{
+name: "Bloxorz",
+description: "The Class of Bloxorz",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdRK3kk9wRGe3w-iLiEbxZUCc5DezoJh8OZg&s",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/bloxorz.html"
+},
+{
+name: "Escape The Prison",
+description: "The Class of Escape The Prison",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSmKS1ehVgekFEJAyhcPNWY5vJQa4jSyq9ug&s",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/escapetheprison.html"
+},
+{
+name: "Infiltrating The Airship",
+description: "The Class of Infiltrating The Airship",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0jMLu1P29TRgnVY7qVjBTEVYAof_4NjYqZcCAUFqKzKFgB4mVn9BVtt2aVOPYK5-OG_GYSOv8ROb24eCmBydf4Ue1HtPsI20s7P-McYE5&s=10",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/infiltratingtheairship.html"
+},
+{
+name: "Worlds Hardest Game 2",
+description: "The Class of Worlds Hardest Game 2",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStiSnyFk05XMxoSlEEHit_OHHDOHDz_lU8Pw&s",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/wrldhardestgame2.html"
+},
+{
+name: "Pac-Man",
+description: "The Class of Pacman",
+image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Original_PacMan.svg/2048px-Original_PacMan.svg.png",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/pacman.html"
+},
+{
+name: "Cookie Clicker",
+description: "The Class of off brand cookie cliker",
+image: "https://cookieclicker.com/img/favicon.ico",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/cookieclicker.html"
+},
+{
+name: "Doom",
+description: "The Class of Doom",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw4g5T6yLKZlOhrF2-AXyo9lSAuOIBUAtsGwtLQkDxOCqdjH0ZsFsqq4S0FJE0AYVemF8PJxF-TGtloLz6wRfwg-yn-SORjW0TSvHiKQvE6A&s=10",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/doom.html"
+},
+{
+name: "Flappy Bird 2",
+description: "The Class of Flappy Bird 2",
+image: "https://flappybird.io/img/favicon.ico",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/flappybird2.html"
+},
+{
+name: "Modded Flappy Bird",
+description: "The Class of Modded Flappy Bird",
+image: "https://flappybird.io/img/favicon.ico",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/moddedflappybird.html"
+},
+{
+name: "Run 3",
+description: "The Class of Run 3",
+image: "https://player03.com/run/3/beta/favicon.png",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/run3.html"
+},
+{
+name: "Super Drift 3D",
+description: "The Class of Super Drift 3D",
+image: "https://files.gamezhero.com/game/8fc/704/8fc7040fa3a311a1/images/240/superdrift3.jpg",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/superdrift3d.html"
+},
+{
+name: "Super Mario 63",
+description: "The Class of Super Mario 63",
+image: "https://img.icons8.com/color/48/super-mario.png",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/supermario63.html"
+},
+{
+name: "Crash Bandicoot",
+description: "The Class of Crash Bandicoot",
+image: "https://img.icons8.com/color/48/crash-bandicoot.png",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/crashbandicoot.html"
+},
+{
+name: "2048",
+description: "The Class of 2048(no worky worky on data urls.)",
+image: "https://play2048.co/favicon180.png",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/2048.html"
+},
+{
+name: "Capybara Clicker 2",
+description: "The Class of Capybara Clicker 2",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIm2pRrdFdA7gDhsH_P9xqlEk4mTOis6uAKQ&s",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/capyclicker2.html"
+},
+{
+name: "Flash Tetris",
+description: "The Class of Flash Tetris",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL5ohYlVET36F5YzyufaSDStQ9M9bwcuQPZwfDfCg4lg_1HpK5O5_CrsFfCiUtcP9Hg1G0mFLbKrD9RuDSXDtRrXWt9WiE1ZddKpyG8oEAEA&s=10",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/flashtetris.html"
+},
+{
+name: "Atom Clicker",
+description: "The Class of Atom Clicker",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/atomclicker.html"
+},
+{
+name: "Mouse Clicker",
+description: "The Class of Mouse Clicker",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdezJRsahh82E2E-YbFndSDcDOqiNonWK6-Q&s",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/mouseclicker.html"
+},
+{
+name: "Bitlife",
+description: "The Class of Bitlife",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHVuYfCjqRtitTaMdGRRaYuVYbheZ9_PhnLA&s",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/bitlife.html"
+},
+{
+name: "Geometry Dash",
+description: "The Class of Geometry Dash",
+image: "https://raw.githubusercontent.com/davidspoofy/assets/refs/heads/main/gd.jpeg",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/geometrydash.html"
+},
+{
+name: "Geometry Dash V3.7",
+description: "The Class of Geometry Dash v3.7",
+image: "https://raw.githubusercontent.com/davidspoofy/assets/refs/heads/main/gd.jpeg",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/V3.7.html"
+},
+{
+name: "Chrome Dinosaur",
+description: "The Class of Chrome Dinosaur",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHne41nuLqYRWwsSuUfgzekbBPm6bhrpdNYA&s",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/chromedino.html"
+},
+{
+name: "Race Survival Arena King",
+description: "The Class of Race Survival Arena King",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvq11J_KG17qx3Dbbjxb8e6CD0ZJXWxiSqOchVx98RQj8WtExFiQ9v3-6LCAQwN5ehjzs&usqp=CAU",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/racesurvivalarena-king.html"
+}
+];
+function generateGameCards() {
+const gamesGrid = document.getElementById('gamesGrid');
+gamesGrid.innerHTML = '';
+gamesData.forEach(game => {
+const gameCard = document.createElement('div');
+gameCard.className = 'game-card';
+gameCard.onclick = () => launchGame(game.url);
+gameCard.innerHTML = `
+<img src="${game.image}" alt="${game.name}" class="game-icon">
+<div class="game-title"><i>🎮</i> ${game.name}</div>
+<div class="game-desc">${game.description}</div>
+`;
+gamesGrid.appendChild(gameCard);
+});
+}
+const modal = document.getElementById('settingsModal');
+const openSettingsBtn = document.getElementById('openSettings');
+const closeModalBtn = document.querySelector('.close-modal');
+const viewPatchNotesBtn = document.getElementById('viewPatchNotesBtn');
+const patchNotesSection = document.getElementById('patchNotesSection');
+let patchNotesVisible = false;
+const warningModal = document.getElementById('warningModal');
+const warningCloseBtn = document.querySelector('.warning-close-btn');
+openSettingsBtn.addEventListener('click', () => {
+modal.style.display = 'flex';
+});
+closeModalBtn.addEventListener('click', () => {
+modal.style.display = 'none';
+patchNotesSection.style.display = 'none';
+patchNotesVisible = false;
+viewPatchNotesBtn.textContent = 'View Patch Notes';
+});
+window.addEventListener('click', (event) => {
+if (event.target === modal) {
+modal.style.display = 'none';
+patchNotesSection.style.display = 'none';
+patchNotesVisible = false;
+viewPatchNotesBtn.textContent = 'View Patch Notes';
+}
+});
+viewPatchNotesBtn.addEventListener('click', () => {
+if (patchNotesVisible) {
+patchNotesSection.style.display = 'none';
+viewPatchNotesBtn.textContent = 'View Patch Notes';
+} else {
+patchNotesSection.style.display = 'block';
+viewPatchNotesBtn.textContent = 'Hide Patch Notes';
+}
+patchNotesVisible = !patchNotesVisible;
+});
+function launchGame(gameUrl) {
+const newWindow = window.open('about:blank', '_blank');
+fetch(gameUrl)
+.then(response => response.text())
+.then(html => {
+const doc = newWindow.document;
+doc.open();
+doc.write(`
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home</title>
+<link rel="icon" href="https://img.icons8.com/color/48/google-classroom.png" type="image/x-icon">
+</head>
+<body>${html}</body>
+</html>
+`);
+doc.close();
+})
+.catch(error => {
+console.error('Error loading game:', error);
+alert('Failed to load the game. Please try again.');
+});
+}
+warningCloseBtn.addEventListener('click', () => {
+warningModal.style.display = 'none';
+});
+window.addEventListener('click', (event) => {
+if (event.target === warningModal) {
+warningModal.style.display = 'none';
+}
+});
+window.addEventListener('load', () => {
+warningModal.style.display = 'flex';
+});
+window.addEventListener('DOMContentLoaded', () => {
+generateGameCards();
+});
+function createShootingStar() {
+  const star = document.createElement('div');
+  star.className = 'shooting-star';
+  const side = Math.floor(Math.random() * 4);
+  let startX, startY, endX, endY;
+  switch(side) {
+    case 0: 
+      startX = Math.random() * window.innerWidth;
+      startY = 0;
+      endX = startX + (Math.random() - 0.5) * 500; // Random angle
+      endY = window.innerHeight;
+      break;
+    case 1: 
+      startX = window.innerWidth;
+      startY = Math.random() * window.innerHeight;
+      endX = startX - (Math.random() - 0.5) * 500;
+      endY = startY + (Math.random() - 0.5) * 500;
+      break;
+    case 2:
+      startX = Math.random() * window.innerWidth;
+      startY = window.innerHeight;
+      endX = startX + (Math.random() - 0.5) * 500;
+      endY = 0;
+      break;
+    case 3: 
+      startX = 0;
+      startY = Math.random() * window.innerHeight;
+      endX = startX + (Math.random() - 0.5) * 500;
+      endY = startY + (Math.random() - 0.5) * 500;
+      break;
+  }
+  star.style.left = `${startX}px`;
+  star.style.top = `${startY}px`;
+  star.style.setProperty('--tx', `${endX - startX}px`);
+  star.style.setProperty('--ty', `${endY - startY}px`);
+  const duration = 1 + Math.random() * 2;
+  const delay = Math.random() * 5; 
+  star.style.animation = `shoot ${duration}s ease-out ${delay}s forwards`;
+  document.body.appendChild(star);
+  setTimeout(() => {
+    star.remove();
+  }, (delay + duration) * 1000);
+}
+let shootingStarInterval = setInterval(() => {
+  crateShootingStar();
+}, 500 + Math.random() * 1000);
 
-    <button id="openSettings" style="position: fixed; top: 20px; left: 20px; background: linear-gradient(135deg, #2c0a47, #1a0a2e); padding: 10px 15px; border-radius: 30px; border: 1px solid rgba(0, 100, 200, 0.3); color: white; cursor: pointer; z-index: 1000;">⚙️ Settings</button>
-
-    <div id="settingsModal" class="modal">
-        <div class="modal-content">
-            <button class="close-modal">&times;</button>
-            <div class="modal-header">
-                <button class="tab-button active" data-tab="settings">Settings</button>
-            </div>
-            <div id="settingsTab" class="tab-content active">
-
-                <h3>Custom Color Gradient</h3>
-                <p>Choose a background color scheme:</p>
-                <div class="color-presets">
-                    <div class="color-preset current-gradient selected" data-gradient="current"></div>
-                    <div class="color-preset blue-gradient" data-gradient="blue"></div>
-                </div>
-
-                <button id="viewPatchNotesBtn">View Patch Notes</button>
-
-                <div id="patchNotesSection" class="patch-notes-section">
-                    <h3>Patch Notes</h3>
-                    <p>Details about the latest updates.</p>
-                    <ul class="patch-notes-list">
-                        <li>
-                            <span class="patch-version">v0.4.6 - November 8, 2025:</span>
-                            <p>Added Chrome Dinosaur game.</p>
-                            <p>Reverted the name change for lucuris.gg to byzan.lol</p>
-                        </li>
-                        <li>
-                            <span class="patch-version">v0.4.5 - November 7, 2025:</span>
-                            <p>Changed name byzan.lol to lucuris.gg</p>
-                        </li>
-                        <li>
-                            <span class="patch-version">v0.4.4 - November 5, 2025:</span>
-                            <p>Added 1 game</p>
-                        </li>
-                        <li>
-                            <span class="patch-version">v0.4.3 - November 5, 2025:</span>
-                            <p>Added 3 games</p>
-                        </li>
-                        <li>
-                            <span class="patch-version">v0.4.2 - November 2, 2025:</span>
-                            <p>Added 1 Flash game (fixed minor visual bug on the games card.)</p>
-                            <p>Removed Timer</p>
-                        </li>
-                        <li>
-                            <span class="patch-version">v0.4.1 - November 2, 2025:</span>
-                            <p>Added 2 games (took a mini break.)</p>
-                            <p>Removed Timer</p>
-                        </li>
-                        <li>
-                            <span class="patch-version">v0.4 - October 30, 2025:</span>
-                            <p>Added tons of more flash games (We now have 20+ games!)</p>
-                            <p>Removed Timer</p>
-                        </li>
-                        <li>
-                            <span class="patch-version">v0.3 - October 29, 2025:</span>
-                            <p>Added more games (We currently now have 10+ games!)</p>
-                        </li>
-                        <li>
-                            <span class="patch-version">v0.2 - October 28, 2025:</span>
-                            <p>Added v0.2 patch notes. fixed most issues added stuff.</p>
-                        </li>
-                        <li>
-                            <span class="patch-version">v0.1 - October 27, 2025:</span>
-                            <p>Initial release of byzan.lol homepage.</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="warningModal" class="modal">
-        <div class="warning-modal-content">
-            <h3>Update V4.6</h3>
-             <p>Added Chrome Dinosaur game.</p>
-             <p>Reverted the name change for lucuris.gg to byzan.lol</p>
-            <p>Updated at November 9th at 12:30am EST</p>
-            <button class="warning-close-btn">Thank you!</button>
-        </div>
-    </div>
-
-
-    <div class="container">
-        <header>
-            <h1>byzan.lol</h1>
-            <p class="subtitle">Go to your classes with just one click</p>
-        </header>
-
-        <div class="game-sections">
-            <div class="section">
-                <div class="section-header">Educational Classes</div>
-                <div class="games-grid">
-                    <div class="game-card" onclick="launchGame('  https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/1v1-lol.html  ')">
-                        <div class="game-title"><i>⚔️</i> 1v1.lol</div>
-                        <div class="game-desc">Battle royale in a fun cartoon style</div>
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/crazycattle3d.html  ')">
-                        <div class="game-title"><i>🐄</i> Crazy Cattle 3D</div>
-                        <div class="game-desc">3D cow racing and action game (this class doesnt work with data:urls k? )</div>
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/slope.html  ')">
-                        <div class="game-title"><i>下滑</i> Slope</div>
-                        <div class="game-desc">3D ball rolling through obstacles</div>
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/gunspin.html  ')">
-                        <div class="game-title"><i>🔫</i> Gunspin</div>
-                        <div class="game-desc">Fast-paced gun spinning action</div>
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/minecraft.html  ')"> 
-                        <div class="game-title"><i>🟩</i> Minecraft</div> 
-                        <div class="game-desc">The Class of Minecraft is a adventrous class.</div> 
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/animalcrossing.html  ')"> 
-                        <div class="game-title"><i>🐱</i> Animal Crossing</div> 
-                        <div class="game-desc">The Class of Animal Crossing</div> 
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/stealingthediamonds.html  ')"> 
-                        <div class="game-title"><i>💎</i> Stealing the Diamonds.</div> 
-                        <div class="game-desc">The Class of STD.</div> 
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/bloxorz.html  ')"> 
-                        <div class="game-title"><i>🟫</i> Bloxorz</div> 
-                        <div class="game-desc">The Class of Bloxorz</div> 
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/escapetheprison.html  ')"> 
-                        <div class="game-title"><i>🏹</i> Escape The Prison</div> 
-                        <div class="game-desc">The Class of Escape The Prison</div> 
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/infiltratingtheairship.html  ')"> 
-                        <div class="game-title"><i>✈</i> Infiltrating The Airship</div> 
-                        <div class="game-desc">The Class of Infiltrating The Airship</div> 
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/wrldhardestgame2.html  ')"> 
-                        <div class="game-title"><i>😡</i> Worlds Hardest Game 2</div> 
-                        <div class="game-desc">The Class of Worlds Hardest Game 2</div> 
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/pacman.html  ')"> 
-                        <div class="game-title"><i>🍒</i> Pac-Man</div> 
-                        <div class="game-desc">The Class of Pacman</div> 
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/cookieclicker.html  ')"> 
-                        <div class="game-title"><i>🍪</i> Cookie Clicker</div> 
-                        <div class="game-desc">The Class of off brand cookie cliker</div> 
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/doom.html  ')"> 
-                        <div class="game-title"><i>🎮</i> Doom</div> 
-                        <div class="game-desc">The Class of Doom</div> 
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/flappybird2.html  ')"> 
-                        <div class="game-title"><i>🐦🐦</i> Flappy Bird 2</div> 
-                        <div class="game-desc">The Class of Flappy Bird 2</div> 
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/moddedflappybird.html  ')"> 
-                        <div class="game-title"><i>🐦‍⬛</i> Modded Flappy Bird</div> 
-                        <div class="game-desc">The Class of Modded Flappy Bird</div> 
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/run3.html  ')"> 
-                        <div class="game-title"><i>👽</i> Run 3</div> 
-                        <div class="game-desc">The Class of Run 3</div> 
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/superdrift3d.html  ')"> 
-                        <div class="game-title"><i>🏎</i> Super Drift 3D</div> 
-                        <div class="game-desc">The Class of Super Drift 3D</div> 
-                    </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/supermario63.html  ')"> 
-                        <div class="game-title"><i>(. ❛ ᴗ ❛.)<i> Super Mario 63</div> 
-                        <div class="game-desc">The Class of Super Mario 63</div> 
-                        </i>
-                        </i>
-                        </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/crashbandicoot.html  ')"> 
-                        <div class="game-title"><i>🐅<i> Crash Bandicoot</div> 
-                        <div class="game-desc">The Class of Crash Bandicoot</div> 
-                        </i>
-                        </i>
-                        </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/2048.html  ')"> 
-                        <div class="game-title"><i>🟨<i> 2048</div> 
-                        <div class="game-desc">The Class of 2048(no worky worky on data urls.)</div> 
-                        </i>
-                        </i>
-                        </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/capyclicker2.html  ')"> 
-                        <div class="game-title"><i>🖱<i> Capybara Clicker 2</div> 
-                        <div class="game-desc">The Class of Capybara Clicker 2</div>
-                        </i>
-                        </i>
-                        </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/flashtetris.html  ')"> 
-                        <div class="game-title"><i>▼△▼△▼△▼△<i> Flash Tetris</div> 
-                        <div class="game-desc">The Class of Flash Tetris</div>
-                        </i>
-                        </i>
-                        </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/atomclicker.html  ')"> 
-                        <div class="game-title"><i>⚛<i> Atom Clicker</div> 
-                        <div class="game-desc">The Class of Atom Clicker</div>
-                        </i>
-                        </i>
-                        </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/mouseclicker.html  ')"> 
-                        <div class="game-title"><i>🖱<i> Mouse Clicker</div> 
-                        <div class="game-desc">The Class of Mouse Clicker</div>
-                        </i>
-                        </i>
-                        </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/bitlife.html')">
-                        <div class="game-title"><i>◽<i> Bitlife</div> 
-                        <div class="game-desc">The Class of Bitlife</div>
-                        </i>
-                        </i>
-                        </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/geometrydash.html')">
-                        <div class="game-title"><i>🟩🔹<i> Geometry Dash</div> 
-                        <div class="game-desc">The Class of Geometry Dash</div>
-                        </i>
-                        </i>
-                        </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/V3.7.html')">
-                        <div class="game-title"><i>🟩🔹<i> Geometry Dash V3.7 (Levels: 16-21)</div> 
-                        <div class="game-desc">The Class of Geometry Dash v3.7</div>
-                        </i>
-                        </i>
-                        </div>
-                    <div class="game-card" onclick="launchGame('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/chromedino.html')">
-                        <div class="game-title"><i>🦖<i> Chrome Dinosaur</div> 
-                        <div class="game-desc">The Class of Chrome Dinosaur</div>
-                        </i>
-                        </i>
-                        </div>
-                </div>
-            </div>
-        </div>
-        </i>
-        </i>
-                    
-
-        <footer>
-            <p>byzan.lol &copy; 2025</p>
-        </footer>
-    </div>
-
-    <script>
-
-        const modal = document.getElementById('settingsModal');
-        const openSettingsBtn = document.getElementById('openSettings');
-        const closeModalBtn = document.querySelector('.close-modal');
-        const colorPresets = document.querySelectorAll('.color-preset');
-
-        const viewPatchNotesBtn = document.getElementById('viewPatchNotesBtn');
-        const patchNotesSection = document.getElementById('patchNotesSection');
-        let patchNotesVisible = false; 
-
-        const warningModal = document.getElementById('warningModal');
-        const warningCloseBtn = document.querySelector('.warning-close-btn');
-
-        function initializeSettings() {
-            const savedGradient = localStorage.getItem('selectedGradient') || 'current';
-            
-            if (savedGradient === 'current') {
-                document.body.classList.remove('blue-theme');
-            } else if (savedGradient === 'blue') {
-                document.body.classList.add('blue-theme');
-            }
-            
-            colorPresets.forEach(preset => {
-                preset.classList.remove('selected');
-                if (preset.getAttribute('data-gradient') === savedGradient) {
-                    preset.classList.add('selected');
-                }
-            });
-        }
-
-        openSettingsBtn.addEventListener('click', () => {
-            modal.style.display = 'flex';
-        });
-
-        closeModalBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-            patchNotesSection.style.display = 'none';
-            patchNotesVisible = false;
-            viewPatchNotesBtn.textContent = 'View Patch Notes';
-        });
-
-        window.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-                patchNotesSection.style.display = 'none';
-                patchNotesVisible = false;
-                viewPatchNotesBtn.textContent = 'View Patch Notes';
-            }
-        });
-
-        viewPatchNotesBtn.addEventListener('click', () => {
-            if (patchNotesVisible) {
-                patchNotesSection.style.display = 'none';
-                viewPatchNotesBtn.textContent = 'View Patch Notes';
-            } else {
-                patchNotesSection.style.display = 'block';
-                viewPatchNotesBtn.textContent = 'Hide Patch Notes';
-            }
-            patchNotesVisible = !patchNotesVisible;
-        });
-
-        colorPresets.forEach(preset => {
-            preset.addEventListener('click', () => {
-                const gradientType = preset.getAttribute('data-gradient');
-                colorPresets.forEach(p => p.classList.remove('selected'));
-                preset.classList.add('selected');
-
-                if (gradientType === 'current') {
-                    document.body.classList.remove('blue-theme');
-                } else if (gradientType === 'blue') {
-                    document.body.classList.add('blue-theme');
-                }
-                
-                localStorage.setItem('selectedGradient', gradientType);
-            });
-        });
-
-        function launchGame(gameUrl) {
-
-            const newWindow = window.open('about:blank', '_blank');
-
-            fetch(gameUrl)
-                .then(response => response.text())
-                .then(html => {
-                    const doc = newWindow.document;
-                    doc.open();
-                    doc.write(`
-                        <!DOCTYPE html>
-                        <html>
-                        <head>
-                            <title>Home</title>
-                            <link rel="icon" href="https://img.icons8.com/color/48/google-classroom.png" type="image/x-icon">
-                        <body>${html}</body>
-                        </html>
-                    `);
-                    doc.close();
-                })
-                .catch(error => {
-                    console.error('Error loading game:', error);
-                    alert('Failed to load the game. Please try again.');
-                });
-        }
-
-
-        warningCloseBtn.addEventListener('click', () => {
-            warningModal.style.display = 'none';
-        });
-
-        window.addEventListener('click', (event) => {
-            if (event.target === warningModal) {
-                warningModal.style.display = 'none';
-            }
-        });
-
-        window.addEventListener('load', () => {
-            warningModal.style.display = 'flex';
-        });
-
-
-        initializeSettings();
-    </script>
+</script>
 </body>
 </html>
