@@ -1,675 +1,671 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home</title>
-<link rel="icon" href="https://img.icons8.com/color/48/google-classroom.png" type="image/x-icon">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: 'Poppins', sans-serif;
-}
-html, body {
-height: 100%;
-width: 100%;
-overflow-x: hidden;
-}
-body {
-background: linear-gradient(135deg, #1a0a2e, #2c0a47, #1a0a2e);
-color: white;
-position: relative;
-min-height: 100vh;
-transition: background 0.5s ease;
-}
-body::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: radial-gradient(circle at 10% 20%, rgba(101, 45, 147, 0.15) 0, transparent 20%), radial-gradient(circle at 90% 80%, rgba(101, 45, 147, 0.15) 0, transparent 20%), radial-gradient(circle at 50% 50%, rgba(101, 45, 147, 0.1) 0, transparent 30%);
-z-index: -1;
-transition: background 0.5s ease;
-}
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background-image:
-    radial-gradient(1.2px 1.2px at 10% 20%, white 50%, transparent 50%),
-    radial-gradient(1.2px 1.2px at 15% 35%, white 50%, transparent 50%),
-    radial-gradient(1.2px 1.2px at 25% 60%, white 50%, transparent 50%),
-    radial-gradient(1.2px 1.2px at 30% 85%, white 50%, transparent 50%),
-    radial-gradient(1.2px 1.2px at 40% 15%, white 50%, transparent 50%),
-    radial-gradient(1.2px 1.2px at 45% 50%, white 50%, transparent 50%),
-    radial-gradient(1.2px 1.2px at 55% 75%, white 50%, transparent 50%),
-    radial-gradient(1.2px 1.2px at 60% 30%, white 50%, transparent 50%),
-    radial-gradient(1.2px 1.2px at 65% 90%, white 50%, transparent 50%),
-    radial-gradient(1.2px 1.2px at 70% 5%, white 50%, transparent 50%),
-    radial-gradient(1.2px 1.2px at 75% 40%, white 50%, transparent 50%),
-    radial-gradient(1.2px 1.2px at 80% 70%, white 50%, transparent 50%),
-    radial-gradient(1.2px 1.2px at 85% 25%, white 50%, transparent 50%),
-    radial-gradient(1.2px 1.2px at 90% 65%, white 50%, transparent 50%),
-    radial-gradient(1.2px 1.2px at 95% 10%, white 50%, transparent 50%);
-  background-size: 20% 20%;
-  animation: twinkle 5s ease-in-out infinite alternate, moveStars 60s linear infinite;
-}
-.shooting-star {
-  position: fixed;
-  height: 2px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
-  border-radius: 50%;
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7));
-  pointer-events: none;
-  opacity: 0;
-  z-index: 1; /* Behind main content, above body background */
-}
-/* Animations */
-@keyframes twinkle {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
-}
-@keyframes moveStars {
-  0% { transform: translateY(0) rotate(0deg); }
-  100% { transform: translateY(100px) rotate(2deg); } /* Subtle movement over time */
-}
-@keyframes shoot {
-  0% { transform: translateX(0) translateY(0); opacity: 0; width: 0; }
-  10% { opacity: 1; width: 5px; }
-  100% { transform: translateX(var(--tx)) translateY(var(--ty)); opacity: 0; width: 100px; }
-}
-/* --- End Starry Background CSS --- */
-.modal {
-display: none;
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.8);
-z-index: 2000;
-justify-content: center;
-align-items: center;
-}
-.modal-content {
-background: linear-gradient(135deg, #2c0a47, #1a0a2e);
-color: white;
-border-radius: 15px;
-width: 90%;
-max-width: 800px;
-box-shadow: 0 0 30px rgba(106, 13, 173, 0.7);
-border: 1px solid rgba(147, 112, 219, 0.5);
-overflow: hidden;
-transition: background 0.5s ease, border-color 0.5s ease;
-}
-.modal-header {
-display: flex;
-background: rgba(40, 20, 60, 0.9);
-border-bottom: 2px solid rgba(147, 112, 219, 0.3);
-transition: background 0.5s ease, border-color 0.5s ease;
-}
-.tab-button {
-flex: 1;
-padding: 15px;
-background: linear-gradient(135deg, #2c0a47, #1a0a2e);
-border: 1px solid rgba(147, 112, 219, 0.3);
-color: white;
-font-size: 1.1rem;
-cursor: pointer;
-transition: background 0.3s, border-color 0.3s;
-}
-.tab-button.active {
-background: linear-gradient(135deg, #1a0a2e, #2c0a47);
-border-color: rgba(147, 112, 219, 0.7);
-}
-.tab-button:hover:not(.active) {
-background: linear-gradient(135deg, #3a1a57, #2c0a47);
-border-color: rgba(147, 112, 219, 0.5);
-}
-.tab-content {
-display: none;
-padding: 25px;
-max-height: 60vh;
-overflow-y: auto;
-background: rgba(30, 15, 50, 0.5);
-}
-.tab-content.active {
-display: block;
-}
-.close-modal {
-position: absolute;
-top: 15px;
-right: 20px;
-font-size: 2rem;
-background: linear-gradient(135deg, #2c0a47, #1a0a2e);
-border: 1px solid rgba(147, 112, 219, 0.3);
-color: white;
-cursor: pointer;
-width: 40px;
-height: 40px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: background 0.3s, border-color 0.3s;
-}
-.close-modal:hover {
-background: linear-gradient(135deg, #3a1a57, #2c0a47);
-border-color: rgba(147, 112, 219, 0.5);
-}
-.warning-modal-content {
-background: linear-gradient(135deg, #2c0a47, #1a0a2e);
-color: white;
-border-radius: 15px;
-width: 90%;
-max-width: 500px;
-box-shadow: 0 0 30px rgba(106, 13, 173, 0.7);
-border: 1px solid rgba(147, 112, 219, 0.5);
-padding: 20px;
-text-align: center;
-z-index: 2001;
-}
-.warning-modal-content h2 {
-margin-top: 0;
-color: #44aaff;
-font-size: 1.8rem;
-text-shadow: 0 0 10px rgba(68, 170, 255, 0.5), 0 0 20px rgba(68, 170, 255, 0.8);
-}
-.warning-modal-content p {
-margin: 15px 0;
-font-size: 1.1rem;
-line-height: 1.5;
-}
-.warning-close-btn {
-background: linear-gradient(135deg, #2c0a47, #1a0a2e);
-border: 1px solid rgba(147, 112, 219, 0.3);
-color: white;
-cursor: pointer;
-padding: 10px 25px;
-font-size: 1rem;
-border-radius: 30px;
-margin-top: 15px;
-transition: background 0.3s, border-color 0.3s;
-}
-.warning-close-btn:hover {
-background: linear-gradient(135deg, #3a1a57, #2c0a47);
-border-color: rgba(147, 112, 219, 0.5);
-}
-.patch-notes-list {
-list-style-type: none;
-padding-left: 0;
-}
-.patch-notes-list li {
-margin-bottom: 15px;
-padding: 15px;
-background: rgba(50, 25, 70, 0.5);
-border-radius: 8px;
-border-left: 4px solid #9370db;
-}
-.patch-version {
-display: block;
-font-weight: bold;
-color: #d4afdd;
-margin-bottom: 5px;
-}
-.toggle-switch {
-position: relative;
-display: inline-block;
-width: 60px;
-height: 34px;
-}
-.toggle-switch input {
-opacity: 0;
-width: 0;
-height: 0;
-}
-.slider {
-position: absolute;
-cursor: pointer;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background-color: #ccc;
-transition: .4s;
-border-radius: 34px;
-}
-.slider:before {
-position: absolute;
-content: "";
-height: 26px;
-width: 26px;
-left: 4px;
-bottom: 4px;
-background-color: white;
-transition: .4s;
-border-radius: 50%;
-}
-input:checked + .slider {
-background-color: #9370db;
-}
-input:checked + .slider:before {
-transform: translateX(26px);
-}
-.patch-notes-section {
-display: none;
-margin-top: 20px;
-padding: 15px;
-background: rgba(50, 25, 70, 0.5);
-border-radius: 8px;
-}
-#viewPatchNotesBtn {
-margin-top: 15px;
-background: linear-gradient(135deg, #2c0a47, #1a0a2e);
-padding: 10px 15px;
-border-radius: 30px;
-border: 1px solid rgba(147, 112, 219, 0.4);
-color: white;
-cursor: pointer;
-z-index: 1000;
-transition: background 0.3s, border-color 0.3s;
-}
-#viewPatchNotesBtn:hover {
-background: linear-gradient(135deg, #3a1a57, #2c0a47);
-border-color: rgba(147, 112, 219, 0.5);
-}
-.container {
-max-width: 1200px;
-margin: 0 auto;
-padding: 20px;
-min-height: 100vh;
-display: flex;
-flex-direction: column;
-position: relative;
-z-index: 2;
-}
-header {
-text-align: center;
-padding: 30px 0;
-margin-bottom: 20px;
-border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-position: relative;
-overflow: hidden;
-}
-h1 {
-font-size: 3.2rem;
-margin-bottom: 10px;
-text-shadow: 0 0 15px rgba(106, 13, 173, 0.7);
-background: linear-gradient(to right, #d4afdd, #b19cd9, #9370db);
--webkit-background-clip: text;
--webkit-text-fill-color: white;
-position: relative;
-display: inline-block;
-}
-h1::after {
-content: '';
-position: absolute;
-bottom: -10px;
-left: 50%;
-transform: translateX(-50%);
-width: 100px;
-height: 4px;
-background: linear-gradient(to right, transparent, #9370db, transparent);
-border-radius: 2px;
-}
-.subtitle {
-font-size: 1.3rem;
-opacity: 0.8;
-margin-top: 15px;
-animation: pulse 3s infinite;
-}
-.game-sections {
-display: flex;
-flex-direction: column;
-gap: 25px;
-flex-grow: 1;
-margin-top: 10px;
-}
-.section {
-background: rgba(30, 15, 50, 0.6);
-border-radius: 15px;
-overflow: hidden;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-transition: all 0.4s ease;
-backdrop-filter: blur(10px);
-border: 1px solid rgba(147, 112, 219, 0.3);
-position: relative;
-transform: translateY(0);
-animation: float 6s ease-in-out infinite;
-}
-.section:hover {
-transform: translateY(-10px) scale(1.03);
-box-shadow: 0 15px 35px rgba(147, 112, 219, 0.4);
-border-color: rgba(147, 112, 219, 0.7);
-}
-.section-header {
-background: rgba(40, 20, 60, 0.8);
-padding: 18px;
-text-align: center;
-font-size: 1.5rem;
-font-weight: 600;
-border-bottom: 2px solid rgba(147, 112, 219, 0.3);
-position: relative;
-}
-.section-header::after {
-content: '';
-position: absolute;
-bottom: 0;
-left: 10%;
-width: 80%;
-height: 2px;
-background: linear-gradient(to right, transparent, #9370db, transparent);
-border-radius: 2px;
-}
-.games-grid {
-padding: 20px;
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-gap: 15px;
-}
-.game-card {
-background: rgba(50, 25, 70, 0.7);
-border-radius: 12px;
-padding: 18px;
-margin-bottom: 18px;
-cursor: pointer;
-transition: all 0.3s ease;
-border: 1px solid rgba(147, 112, 219, 0.2);
-position: relative;
-overflow: hidden;
-display: flex;
-flex-direction: column;
-align-items: center;
-min-height: 220px;
-}
-.game-card::before {
-content: '';
-position: absolute;
-top: 0;
-left: -100%;
-width: 100%;
-height: 100%;
-background: linear-gradient(90deg, transparent, rgba(147, 112, 219, 0.2), transparent);
-transition: 0.5s;
-}
-.game-card:hover {
-background: rgba(70, 35, 90, 0.85);
-transform: scale(1.03);
-box-shadow: 0 5px 15px rgba(147, 112, 219, 0.3);
-}
-.game-icon {
-width: 100px;
-height: 100px;
-margin-bottom: 12px;
-object-fit: contain;
-border-radius: 8px;
-border: 2px solid rgba(255, 255, 255, 0.1);
-}
-.game-title {
-font-size: 1.2rem;
-margin-bottom: 8px;
-display: flex;
-align-items: center;
-font-weight: 600;
-justify-content: center;
-}
-.game-title i {
-margin-right: 12px;
-font-size: 1.4rem;
-color: #b19cd9;
-}
-.game-desc {
-font-size: 0.95rem;
-opacity: 0.8;
-line-height: 1.5;
-text-align: center;
-}
-footer {
-text-align: center;
-margin-top: auto;
-padding: 25px;
-opacity: 0.7;
-font-size: 1rem;
-border-top: 1px solid rgba(147, 112, 219, 0.2);
-}
-@keyframes float {
-0%, 100% { transform: translateY(0); }
-50% { transform: translateY(-15px); }
-}
-@keyframes pulse {
-0%, 100% { opacity: 0.7; }
-50% { opacity: 1; }
-}
-@keyframes pulse-border {
-0%, 100% { box-shadow: 0 0 15px rgba(147, 112, 219, 0.3); }
-50% { box-shadow: 0 0 25px rgba(147, 112, 219, 0.6); }
-}
-@keyframes glow {
-from { text-shadow: 0 0 5px rgba(164, 252, 164, 0.5); }
-to { text-shadow: 0 0 20px rgba(164, 252, 164, 0.8); }
-}
-@keyframes glow-red {
-from { text-shadow: 0 0 5px rgba(255, 107, 107, 0.5); }
-to { text-shadow: 0 0 20px rgba(255, 107, 107, 0.8); }
-}
-@media (max-width: 768px) {
-.games-grid {
-grid-template-columns: 1fr;
-}
-h1 {
-font-size: 2.5rem;
-}
-.subtitle {
-font-size: 1.1rem;
-}
-.container {
-padding: 15px;
-}
-}
-</style>
-</head>
-<body>
-<button id="openSettings" style="position: fixed; top: 20px; left: 20px; background: linear-gradient(135deg, #2c0a47, #1a0a2e); padding: 10px 15px; border-radius: 30px; border: 1px solid rgba(0, 100, 200, 0.3); color: white; cursor: pointer; z-index: 1000;">⚙️ Settings</button>
-<div id="settingsModal" class="modal">
-<div class="modal-content">
-<button class="close-modal">&times;</button>
-<div class="modal-header">
-<button class="tab-button active" data-tab="settings">Settings</button>
-</div>
-<div id="settingsTab" class="tab-content active">
-<!-- Removed Custom Color Gradient section -->
-<button id="viewPatchNotesBtn">View Patch Notes</button>
-<div id="patchNotesSection" class="patch-notes-section">
-<h3>Patch Notes</h3>
-<p>Details about the latest updates.</p>
-<ul class="patch-notes-list">
-<li>
-<span class="patch-version">v1 - November 10, 2025:</span>
-<p>Added Race Survival Arena King.</p>
-<p>Added Stars in the background</p>
-<p>Added flying shards in the background</p>
-<p>Removed Custom gradients</p>
-</li>
-<li>
-<span class="patch-version">v0.4.6 - November 8, 2025:</span>
-<p>Added Chrome Dinosaur game.</p>
-<p>Reverted the name change for lucuris.gg to byzan.lol</p>
-</li>
-<li>
-<span class="patch-version">v0.4.5 - November 7, 2025:</span>
-<p>Changed name byzan.lol to lucuris.gg</p>
-</li>
-<li>
-<span class="patch-version">v0.4.4 - November 5, 2025:</span>
-<p>Added 1 game</p>
-</li>
-<li>
-<span class="patch-version">v0.4.3 - November 5, 2025:</span>
-<p>Added 3 games</p>
-</li>
-<li>
-<span class="patch-version">v0.4.2 - November 2, 2025:</span>
-<p>Added 1 Flash game (fixed minor visual bug on the games card.)</p>
-<p>Removed Timer</p>
-</li>
-<li>
-<span class="patch-version">v0.4.1 - November 2, 2025:</span>
-<p>Added 2 games (took a mini break.)</p>
-<p>Removed Timer</p>
-</li>
-<li>
-<span class="patch-version">v0.4 - October 30, 2025:</span>
-<p>Added tons of more flash games (We now have 20+ games!)</p>
-<p>Removed Timer</p>
-</li>
-<li>
-<span class="patch-version">v0.3 - October 29, 2025:</span>
-<p>Added more games (We currently now have 10+ games!)</p>
-</li>
-<li>
-<span class="patch-version">v0.2 - October 28, 2025:</span>
-<p>Added v0.2 patch notes. fixed most issues added stuff.</p>
-</li>
-<li>
-<span class="patch-version">v0.1 - October 27, 2025:</span>
-<p>Initial release of byzan.lol homepage.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div id="warningModal" class="modal">
-<div class="warning-modal-content">
-<h3>Update V1</h3>
-<p>Added Race Survival Arena King.</p>
-<p>Added Stars in the background</p>
-<p>Added flying shards in the background</p>
-<p>Removed Custom gradients</p>
-<p><strong>November 10th 2025 at 6:07AM</strong></p>
-<button class="warning-close-btn">Thank you!</button>
-</div>
-</div>
-<div class="container">
-<header>
-<h1>byzan.lol</h1>
-<p class="subtitle">Go to your classes with just one click</p>
-</header>
-<div class="game-sections">
-<div class="section">
-<div class="section-header">Educational Classes</div>
-<div id="gamesGrid" class="games-grid">
-</div>
-</div>
-</div>
-<footer>
-<p>byzan.lol &copy; 2025</p>
-</footer>
-</div>
-<script>
-/* ---------- 1.  load games ---------- */
-let gamesData = [];
-fetch('https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/games.json')        
-  .then(res => res.json())
-  .then(data => {
-      gamesData = data;                   
-      generateGameCards();              
-  })
-  .catch(err => console.error('Games list failed to load:', err));
-
-/* ---------- 2.  build the grid ---------- */
-function generateGameCards() {
-  const grid = document.getElementById('gamesGrid');
-  grid.innerHTML = '';                    
-  gamesData.forEach(g => {
-      const card = document.createElement('div');
-      card.className = 'game-card';
-      card.onclick = () => launchGame(g.url);
-      card.innerHTML = `
-        <img src="${g.image}" alt="${g.name}" class="game-icon">
-        <div class="game-title"><i>🎮</i> ${g.name}</div>
-        <div class="game-desc">${g.description}</div>`;
-      grid.appendChild(card);
-  });
-}
-
-/* ---------- 3.  launch a game ---------- */
-function launchGame(gameUrl) {
-  const win = window.open('about:blank', '_blank');
-  fetch(gameUrl)
-    .then(r => r.text())
-    .then(html => {
-        const d = win.document;
-        d.open();
-        d.write(`<!DOCTYPE html>
-<html>
-<head>
-  <title>Home</title>
-  <link rel="icon" href="https://img.icons8.com/color/48/google-classroom.png" type="image/x-icon">
-</head>
-<body>${html}</body>
-</html>`);
-        d.close();
-    })
-    .catch(() => alert('Failed to load the game. Please try again.'));
-}
-
-/* ---------- 4.  modals ---------- */
-const modal          = document.getElementById('settingsModal');
-const openBtn        = document.getElementById('openSettings');
-const closeBtn       = document.querySelector('.close-modal');
-const patchBtn       = document.getElementById('viewPatchNotesBtn');
-const patchSection   = document.getElementById('patchNotesSection');
-let patchVisible     = false;
-
-openBtn.onclick = () => modal.style.display = 'flex';
-closeBtn.onclick = () => { modal.style.display = 'none'; hidePatch(); };
-window.onclick  = e => { if (e.target === modal) { modal.style.display = 'none'; hidePatch(); } };
-
-patchBtn.onclick = () => {
-  patchVisible ? hidePatch() : showPatch();
-  patchVisible = !patchVisible;
-};
-function showPatch() { patchSection.style.display = 'block'; patchBtn.textContent = 'Hide Patch Notes'; }
-function hidePatch() { patchSection.style.display = 'none';  patchBtn.textContent = 'View Patch Notes'; }
-
-/* ---------- 5.  warning modal ---------- */
-const warnModal = document.getElementById('warningModal');
-const warnClose = document.querySelector('.warning-close-btn');
-warnClose.onclick = () => warnModal.style.display = 'none';
-window.onclick = e => { if (e.target === warnModal) warnModal.style.display = 'none'; };
-window.addEventListener('load', () => warnModal.style.display = 'flex');
-
-/* ---------- 6.  shooting stars ---------- */
-function createShootingStar() {
-  const star = document.createElement('div');
-  star.className = 'shooting-star';
-  const side = Math.floor(Math.random() * 4);
-  let sx, sy, ex, ey;
-  switch (side) {
-    case 0: sx = Math.random() * innerWidth; sy = 0; ex = sx + (Math.random() - .5) * 500; ey = innerHeight; break;
-    case 1: sx = innerWidth; sy = Math.random() * innerHeight; ex = sx - (Math.random() - .5) * 500; ey = sy + (Math.random() - .5) * 500; break;
-    case 2: sx = Math.random() * innerWidth; sy = innerHeight; ex = sx + (Math.random() - .5) * 500; ey = 0; break;
-    case 3: sx = 0; sy = Math.random() * innerHeight; ex = sx + (Math.random() - .5) * 500; ey = sy + (Math.random() - .5) * 500; break;
-  }
-  star.style.left = `${sx}px`; star.style.top = `${sy}px`;
-  star.style.setProperty('--tx', `${ex - sx}px`); star.style.setProperty('--ty', `${ey - sy}px`);
-  const dur = 1 + Math.random() * 2, delay = Math.random() * 5;
-  star.style.animation = `shoot ${dur}s ease-out ${delay}s forwards`;
-  document.body.appendChild(star);
-  setTimeout(() => star.remove(), (delay + dur) * 1000);
-}
-setInterval(createShootingStar, 500 + Math.random() * 1000);
-
-</script>
-</body>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Home</title>
+      <link rel="icon" href="https://img.icons8.com/color/48/google-classroom.png" type="image/x-icon">
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+      <style>
+         * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         font-family: 'Poppins', sans-serif;
+         }
+         html, body {
+         height: 100%;
+         width: 100%;
+         overflow-x: hidden;
+         }
+         body {
+         background: linear-gradient(135deg, #1a0a2e, #2c0a47, #1a0a2e);
+         color: white;
+         position: relative;
+         min-height: 100vh;
+         transition: background 0.5s ease;
+         }
+         body::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: radial-gradient(circle at 10% 20%, rgba(101, 45, 147, 0.15) 0, transparent 20%), radial-gradient(circle at 90% 80%, rgba(101, 45, 147, 0.15) 0, transparent 20%), radial-gradient(circle at 50% 50%, rgba(101, 45, 147, 0.1) 0, transparent 30%);
+         z-index: -1;
+         transition: background 0.5s ease;
+         }
+         body::after {
+         content: "";
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         pointer-events: none;
+         background-image:
+         radial-gradient(1.2px 1.2px at 10% 20%, white 50%, transparent 50%),
+         radial-gradient(1.2px 1.2px at 15% 35%, white 50%, transparent 50%),
+         radial-gradient(1.2px 1.2px at 25% 60%, white 50%, transparent 50%),
+         radial-gradient(1.2px 1.2px at 30% 85%, white 50%, transparent 50%),
+         radial-gradient(1.2px 1.2px at 40% 15%, white 50%, transparent 50%),
+         radial-gradient(1.2px 1.2px at 45% 50%, white 50%, transparent 50%),
+         radial-gradient(1.2px 1.2px at 55% 75%, white 50%, transparent 50%),
+         radial-gradient(1.2px 1.2px at 60% 30%, white 50%, transparent 50%),
+         radial-gradient(1.2px 1.2px at 65% 90%, white 50%, transparent 50%),
+         radial-gradient(1.2px 1.2px at 70% 5%, white 50%, transparent 50%),
+         radial-gradient(1.2px 1.2px at 75% 40%, white 50%, transparent 50%),
+         radial-gradient(1.2px 1.2px at 80% 70%, white 50%, transparent 50%),
+         radial-gradient(1.2px 1.2px at 85% 25%, white 50%, transparent 50%),
+         radial-gradient(1.2px 1.2px at 90% 65%, white 50%, transparent 50%),
+         radial-gradient(1.2px 1.2px at 95% 10%, white 50%, transparent 50%);
+         background-size: 20% 20%;
+         animation: twinkle 5s ease-in-out infinite alternate, moveStars 60s linear infinite;
+         }
+         .shooting-star {
+         position: fixed;
+         height: 2px;
+         background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
+         border-radius: 50%;
+         filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7));
+         pointer-events: none;
+         opacity: 0;
+         z-index: 1; /* Behind main content, above body background */
+         }
+         /* Animations */
+         @keyframes twinkle {
+         0%, 100% { opacity: 0.7; }
+         50% { opacity: 1; }
+         }
+         @keyframes moveStars {
+         0% { transform: translateY(0) rotate(0deg); }
+         100% { transform: translateY(100px) rotate(2deg); } /* Subtle movement over time */
+         }
+         @keyframes shoot {
+         0% { transform: translateX(0) translateY(0); opacity: 0; width: 0; }
+         10% { opacity: 1; width: 5px; }
+         100% { transform: translateX(var(--tx)) translateY(var(--ty)); opacity: 0; width: 100px; }
+         }
+         /* --- End Starry Background CSS --- */
+         .modal {
+         display: none;
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-color: rgba(0, 0, 0, 0.8);
+         z-index: 2000;
+         justify-content: center;
+         align-items: center;
+         }
+         .modal-content {
+         background: linear-gradient(135deg, #2c0a47, #1a0a2e);
+         color: white;
+         border-radius: 15px;
+         width: 90%;
+         max-width: 800px;
+         box-shadow: 0 0 30px rgba(106, 13, 173, 0.7);
+         border: 1px solid rgba(147, 112, 219, 0.5);
+         overflow: hidden;
+         transition: background 0.5s ease, border-color 0.5s ease;
+         }
+         .modal-header {
+         display: flex;
+         background: rgba(40, 20, 60, 0.9);
+         border-bottom: 2px solid rgba(147, 112, 219, 0.3);
+         transition: background 0.5s ease, border-color 0.5s ease;
+         }
+         .tab-button {
+         flex: 1;
+         padding: 15px;
+         background: linear-gradient(135deg, #2c0a47, #1a0a2e);
+         border: 1px solid rgba(147, 112, 219, 0.3);
+         color: white;
+         font-size: 1.1rem;
+         cursor: pointer;
+         transition: background 0.3s, border-color 0.3s;
+         }
+         .tab-button.active {
+         background: linear-gradient(135deg, #1a0a2e, #2c0a47);
+         border-color: rgba(147, 112, 219, 0.7);
+         }
+         .tab-button:hover:not(.active) {
+         background: linear-gradient(135deg, #3a1a57, #2c0a47);
+         border-color: rgba(147, 112, 219, 0.5);
+         }
+         .tab-content {
+         display: none;
+         padding: 25px;
+         max-height: 60vh;
+         overflow-y: auto;
+         background: rgba(30, 15, 50, 0.5);
+         }
+         .tab-content.active {
+         display: block;
+         }
+         .close-modal {
+         position: absolute;
+         top: 15px;
+         right: 20px;
+         font-size: 2rem;
+         background: linear-gradient(135deg, #2c0a47, #1a0a2e);
+         border: 1px solid rgba(147, 112, 219, 0.3);
+         color: white;
+         cursor: pointer;
+         width: 40px;
+         height: 40px;
+         border-radius: 50%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         transition: background 0.3s, border-color 0.3s;
+         }
+         .close-modal:hover {
+         background: linear-gradient(135deg, #3a1a57, #2c0a47);
+         border-color: rgba(147, 112, 219, 0.5);
+         }
+         .warning-modal-content {
+         background: linear-gradient(135deg, #2c0a47, #1a0a2e);
+         color: white;
+         border-radius: 15px;
+         width: 90%;
+         max-width: 500px;
+         box-shadow: 0 0 30px rgba(106, 13, 173, 0.7);
+         border: 1px solid rgba(147, 112, 219, 0.5);
+         padding: 20px;
+         text-align: center;
+         z-index: 2001;
+         }
+         .warning-modal-content h2 {
+         margin-top: 0;
+         color: #44aaff;
+         font-size: 1.8rem;
+         text-shadow: 0 0 10px rgba(68, 170, 255, 0.5), 0 0 20px rgba(68, 170, 255, 0.8);
+         }
+         .warning-modal-content p {
+         margin: 15px 0;
+         font-size: 1.1rem;
+         line-height: 1.5;
+         }
+         .warning-close-btn {
+         background: linear-gradient(135deg, #2c0a47, #1a0a2e);
+         border: 1px solid rgba(147, 112, 219, 0.3);
+         color: white;
+         cursor: pointer;
+         padding: 10px 25px;
+         font-size: 1rem;
+         border-radius: 30px;
+         margin-top: 15px;
+         transition: background 0.3s, border-color 0.3s;
+         }
+         .warning-close-btn:hover {
+         background: linear-gradient(135deg, #3a1a57, #2c0a47);
+         border-color: rgba(147, 112, 219, 0.5);
+         }
+         .patch-notes-list {
+         list-style-type: none;
+         padding-left: 0;
+         }
+         .patch-notes-list li {
+         margin-bottom: 15px;
+         padding: 15px;
+         background: rgba(50, 25, 70, 0.5);
+         border-radius: 8px;
+         border-left: 4px solid #9370db;
+         }
+         .patch-version {
+         display: block;
+         font-weight: bold;
+         color: #d4afdd;
+         margin-bottom: 5px;
+         }
+         .toggle-switch {
+         position: relative;
+         display: inline-block;
+         width: 60px;
+         height: 34px;
+         }
+         .toggle-switch input {
+         opacity: 0;
+         width: 0;
+         height: 0;
+         }
+         .slider {
+         position: absolute;
+         cursor: pointer;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         background-color: #ccc;
+         transition: .4s;
+         border-radius: 34px;
+         }
+         .slider:before {
+         position: absolute;
+         content: "";
+         height: 26px;
+         width: 26px;
+         left: 4px;
+         bottom: 4px;
+         background-color: white;
+         transition: .4s;
+         border-radius: 50%;
+         }
+         input:checked + .slider {
+         background-color: #9370db;
+         }
+         input:checked + .slider:before {
+         transform: translateX(26px);
+         }
+         .patch-notes-section {
+         display: none;
+         margin-top: 20px;
+         padding: 15px;
+         background: rgba(50, 25, 70, 0.5);
+         border-radius: 8px;
+         }
+         #viewPatchNotesBtn {
+         margin-top: 15px;
+         background: linear-gradient(135deg, #2c0a47, #1a0a2e);
+         padding: 10px 15px;
+         border-radius: 30px;
+         border: 1px solid rgba(147, 112, 219, 0.4);
+         color: white;
+         cursor: pointer;
+         z-index: 1000;
+         transition: background 0.3s, border-color 0.3s;
+         }
+         #viewPatchNotesBtn:hover {
+         background: linear-gradient(135deg, #3a1a57, #2c0a47);
+         border-color: rgba(147, 112, 219, 0.5);
+         }
+         .container {
+         max-width: 1200px;
+         margin: 0 auto;
+         padding: 20px;
+         min-height: 100vh;
+         display: flex;
+         flex-direction: column;
+         position: relative;
+         z-index: 2;
+         }
+         header {
+         text-align: center;
+         padding: 30px 0;
+         margin-bottom: 20px;
+         border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+         position: relative;
+         overflow: hidden;
+         }
+         h1 {
+         font-size: 3.2rem;
+         margin-bottom: 10px;
+         text-shadow: 0 0 15px rgba(106, 13, 173, 0.7);
+         background: linear-gradient(to right, #d4afdd, #b19cd9, #9370db);
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: white;
+         position: relative;
+         display: inline-block;
+         }
+         h1::after {
+         content: '';
+         position: absolute;
+         bottom: -10px;
+         left: 50%;
+         transform: translateX(-50%);
+         width: 100px;
+         height: 4px;
+         background: linear-gradient(to right, transparent, #9370db, transparent);
+         border-radius: 2px;
+         }
+         .subtitle {
+         font-size: 1.3rem;
+         opacity: 0.8;
+         margin-top: 15px;
+         animation: pulse 3s infinite;
+         }
+         .game-sections {
+         display: flex;
+         flex-direction: column;
+         gap: 25px;
+         flex-grow: 1;
+         margin-top: 10px;
+         }
+         .section {
+         background: rgba(30, 15, 50, 0.6);
+         border-radius: 15px;
+         overflow: hidden;
+         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+         transition: all 0.4s ease;
+         backdrop-filter: blur(10px);
+         border: 1px solid rgba(147, 112, 219, 0.3);
+         position: relative;
+         transform: translateY(0);
+         animation: float 6s ease-in-out infinite;
+         }
+         .section:hover {
+         transform: translateY(-10px) scale(1.03);
+         box-shadow: 0 15px 35px rgba(147, 112, 219, 0.4);
+         border-color: rgba(147, 112, 219, 0.7);
+         }
+         .section-header {
+         background: rgba(40, 20, 60, 0.8);
+         padding: 18px;
+         text-align: center;
+         font-size: 1.5rem;
+         font-weight: 600;
+         border-bottom: 2px solid rgba(147, 112, 219, 0.3);
+         position: relative;
+         }
+         .section-header::after {
+         content: '';
+         position: absolute;
+         bottom: 0;
+         left: 10%;
+         width: 80%;
+         height: 2px;
+         background: linear-gradient(to right, transparent, #9370db, transparent);
+         border-radius: 2px;
+         }
+         .games-grid {
+         padding: 20px;
+         display: grid;
+         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+         gap: 15px;
+         }
+         .game-card {
+         background: rgba(50, 25, 70, 0.7);
+         border-radius: 12px;
+         padding: 18px;
+         margin-bottom: 18px;
+         cursor: pointer;
+         transition: all 0.3s ease;
+         border: 1px solid rgba(147, 112, 219, 0.2);
+         position: relative;
+         overflow: hidden;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         min-height: 220px;
+         }
+         .game-card::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: -100%;
+         width: 100%;
+         height: 100%;
+         background: linear-gradient(90deg, transparent, rgba(147, 112, 219, 0.2), transparent);
+         transition: 0.5s;
+         }
+         .game-card:hover {
+         background: rgba(70, 35, 90, 0.85);
+         transform: scale(1.03);
+         box-shadow: 0 5px 15px rgba(147, 112, 219, 0.3);
+         }
+         .game-icon {
+         width: 100px;
+         height: 100px;
+         margin-bottom: 12px;
+         object-fit: contain;
+         border-radius: 8px;
+         border: 2px solid rgba(255, 255, 255, 0.1);
+         }
+         .game-title {
+         font-size: 1.2rem;
+         margin-bottom: 8px;
+         display: flex;
+         align-items: center;
+         font-weight: 600;
+         justify-content: center;
+         }
+         .game-title i {
+         margin-right: 12px;
+         font-size: 1.4rem;
+         color: #b19cd9;
+         }
+         .game-desc {
+         font-size: 0.95rem;
+         opacity: 0.8;
+         line-height: 1.5;
+         text-align: center;
+         }
+         footer {
+         text-align: center;
+         margin-top: auto;
+         padding: 25px;
+         opacity: 0.7;
+         font-size: 1rem;
+         border-top: 1px solid rgba(147, 112, 219, 0.2);
+         }
+         @keyframes float {
+         0%, 100% { transform: translateY(0); }
+         50% { transform: translateY(-15px); }
+         }
+         @keyframes pulse {
+         0%, 100% { opacity: 0.7; }
+         50% { opacity: 1; }
+         }
+         @keyframes pulse-border {
+         0%, 100% { box-shadow: 0 0 15px rgba(147, 112, 219, 0.3); }
+         50% { box-shadow: 0 0 25px rgba(147, 112, 219, 0.6); }
+         }
+         @keyframes glow {
+         from { text-shadow: 0 0 5px rgba(164, 252, 164, 0.5); }
+         to { text-shadow: 0 0 20px rgba(164, 252, 164, 0.8); }
+         }
+         @keyframes glow-red {
+         from { text-shadow: 0 0 5px rgba(255, 107, 107, 0.5); }
+         to { text-shadow: 0 0 20px rgba(255, 107, 107, 0.8); }
+         }
+         @media (max-width: 768px) {
+         .games-grid {
+         grid-template-columns: 1fr;
+         }
+         h1 {
+         font-size: 2.5rem;
+         }
+         .subtitle {
+         font-size: 1.1rem;
+         }
+         .container {
+         padding: 15px;
+         }
+         }
+      </style>
+   </head>
+   <body>
+      <button id="openSettings" style="position: fixed; top: 20px; left: 20px; background: linear-gradient(135deg, #2c0a47, #1a0a2e); padding: 10px 15px; border-radius: 30px; border: 1px solid rgba(0, 100, 200, 0.3); color: white; cursor: pointer; z-index: 1000;">⚙️ Settings</button>
+      <div id="settingsModal" class="modal">
+         <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="modal-header">
+               <button class="tab-button active" data-tab="settings">Settings</button>
+            </div>
+            <div id="settingsTab" class="tab-content active">
+               <!-- Removed Custom Color Gradient section -->
+               <button id="viewPatchNotesBtn">View Patch Notes</button>
+               <div id="patchNotesSection" class="patch-notes-section">
+                  <h3>Patch Notes</h3>
+                  <p>Details about the latest updates.</p>
+                  <ul class="patch-notes-list">
+                     <li>
+                        <span class="patch-version">v1 - November 10, 2025:</span>
+                        <p>Added Race Survival Arena King.</p>
+                        <p>Added Stars in the background</p>
+                        <p>Added flying shards in the background</p>
+                        <p>Removed Custom gradients</p>
+                     </li>
+                     <li>
+                        <span class="patch-version">v0.4.6 - November 8, 2025:</span>
+                        <p>Added Chrome Dinosaur game.</p>
+                        <p>Reverted the name change for lucuris.gg to byzan.lol</p>
+                     </li>
+                     <li>
+                        <span class="patch-version">v0.4.5 - November 7, 2025:</span>
+                        <p>Changed name byzan.lol to lucuris.gg</p>
+                     </li>
+                     <li>
+                        <span class="patch-version">v0.4.4 - November 5, 2025:</span>
+                        <p>Added 1 game</p>
+                     </li>
+                     <li>
+                        <span class="patch-version">v0.4.3 - November 5, 2025:</span>
+                        <p>Added 3 games</p>
+                     </li>
+                     <li>
+                        <span class="patch-version">v0.4.2 - November 2, 2025:</span>
+                        <p>Added 1 Flash game (fixed minor visual bug on the games card.)</p>
+                        <p>Removed Timer</p>
+                     </li>
+                     <li>
+                        <span class="patch-version">v0.4.1 - November 2, 2025:</span>
+                        <p>Added 2 games (took a mini break.)</p>
+                        <p>Removed Timer</p>
+                     </li>
+                     <li>
+                        <span class="patch-version">v0.4 - October 30, 2025:</span>
+                        <p>Added tons of more flash games (We now have 20+ games!)</p>
+                        <p>Removed Timer</p>
+                     </li>
+                     <li>
+                        <span class="patch-version">v0.3 - October 29, 2025:</span>
+                        <p>Added more games (We currently now have 10+ games!)</p>
+                     </li>
+                     <li>
+                        <span class="patch-version">v0.2 - October 28, 2025:</span>
+                        <p>Added v0.2 patch notes. fixed most issues added stuff.</p>
+                     </li>
+                     <li>
+                        <span class="patch-version">v0.1 - October 27, 2025:</span>
+                        <p>Initial release of byzan.lol homepage.</p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="warningModal" class="modal">
+         <div class="warning-modal-content">
+            <h3>Update V1</h3>
+            <p>Added Race Survival Arena King.</p>
+            <p>Added Stars in the background</p>
+            <p>Added flying shards in the background</p>
+            <p>Removed Custom gradients</p>
+            <p>
+               <strong>November 10th 2025 at 6:07AM</strong>
+            </p>
+            <button class="warning-close-btn">Thank you!</button>
+         </div>
+      </div>
+      <div class="container">
+         <header>
+            <h1>byzan.lol</h1>
+            <p class="subtitle">Go to your classes with just one click</p>
+         </header>
+         <div class="game-sections">
+            <div class="section">
+               <div class="section-header">Educational Classes</div>
+               <div id="gamesGrid" class="games-grid">
+               </div>
+            </div>
+         </div>
+         <footer>
+            <p>byzan.lol &copy; 2025</p>
+         </footer>
+      </div>
+      <script>
+         /* ---------- 1.  load games ---------- */
+         let gamesData = [];
+         fetch('https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/games.json')
+         .then(res => res.json())
+         .then(data => {
+         gamesData = data;
+         generateGameCards();
+         })
+         .catch(err => console.error('Games list failed to load:', err));
+         /* ---------- 2.  build the grid ---------- */
+         function generateGameCards() {
+         const grid = document.getElementById('gamesGrid');
+         grid.innerHTML = '';
+         gamesData.forEach(g => {
+         const card = document.createElement('div');
+         card.className = 'game-card';
+         card.onclick = () => launchGame(g.url);
+         card.innerHTML = `
+         <img src="${g.image}" alt="${g.name}" class="game-icon">
+           <div class="game-title">
+             <i>🎮</i> ${g.name}</div>
+               <div class="game-desc">${g.description}</div>`;
+                 grid.appendChild(card);
+                 });
+                 }
+                 /* ---------- 3.  launch a game ---------- */
+                 function launchGame(gameUrl) {
+                 const win = window.open('about:blank', '_blank');
+                 fetch(gameUrl)
+                 .then(r => r.text())
+                 .then(html => {
+                 const d = win.document;
+                 d.open();
+                 d.write(`<!DOCTYPE html>
+                 <html>
+                   <head>
+                     <title>Home</title>
+                       <link rel="icon" href="https://img.icons8.com/color/48/google-classroom.png" type="image/x-icon">
+                       </head>
+                       <body>${html}</body>
+                       </html>`);
+                       d.close();
+                       })
+                       .catch(() => alert('Failed to load the game. Please try again.'));
+                       }
+                       /* ---------- 4.  modals ---------- */
+                       const modal          = document.getElementById('settingsModal');
+                       const openBtn        = document.getElementById('openSettings');
+                       const closeBtn       = document.querySelector('.close-modal');
+                       const patchBtn       = document.getElementById('viewPatchNotesBtn');
+                       const patchSection   = document.getElementById('patchNotesSection');
+                       let patchVisible     = false;
+                       openBtn.onclick = () => modal.style.display = 'flex';
+                       closeBtn.onclick = () => { modal.style.display = 'none'; hidePatch(); };
+                       window.onclick  = e => { if (e.target === modal) { modal.style.display = 'none'; hidePatch(); } };
+                       patchBtn.onclick = () => {
+                       patchVisible ? hidePatch() : showPatch();
+                       patchVisible = !patchVisible;
+                       };
+                       function showPatch() { patchSection.style.display = 'block'; patchBtn.textContent = 'Hide Patch Notes'; }
+                       function hidePatch() { patchSection.style.display = 'none';  patchBtn.textContent = 'View Patch Notes'; }
+                       /* ---------- 5.  warning modal ---------- */
+                       const warnModal = document.getElementById('warningModal');
+                       const warnClose = document.querySelector('.warning-close-btn');
+                       warnClose.onclick = () => warnModal.style.display = 'none';
+                       window.onclick = e => { if (e.target === warnModal) warnModal.style.display = 'none'; };
+                       window.addEventListener('load', () => warnModal.style.display = 'flex');
+                       /* ---------- 6.  shooting stars ---------- */
+                       function createShootingStar() {
+                       const star = document.createElement('div');
+                       star.className = 'shooting-star';
+                       const side = Math.floor(Math.random() * 4);
+                       let sx, sy, ex, ey;
+                       switch (side) {
+                       case 0: sx = Math.random() * innerWidth; sy = 0; ex = sx + (Math.random() - .5) * 500; ey = innerHeight; break;
+                       case 1: sx = innerWidth; sy = Math.random() * innerHeight; ex = sx - (Math.random() - .5) * 500; ey = sy + (Math.random() - .5) * 500; break;
+                       case 2: sx = Math.random() * innerWidth; sy = innerHeight; ex = sx + (Math.random() - .5) * 500; ey = 0; break;
+                       case 3: sx = 0; sy = Math.random() * innerHeight; ex = sx + (Math.random() - .5) * 500; ey = sy + (Math.random() - .5) * 500; break;
+                       }
+                       star.style.left = `${sx}px`; star.style.top = `${sy}px`;
+                       star.style.setProperty('--tx', `${ex - sx}px`); star.style.setProperty('--ty', `${ey - sy}px`);
+                       const dur = 1 + Math.random() * 2, delay = Math.random() * 5;
+                       star.style.animation = `shoot ${dur}s ease-out ${delay}s forwards`;
+                       document.body.appendChild(star);
+                       setTimeout(() => star.remove(), (delay + dur) * 1000);
+                       }
+                       setInterval(createShootingStar, 700 + Math.random() * 750);
+                     
+      </script>
+   </body>
 </html>
