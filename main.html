@@ -576,321 +576,102 @@ padding: 15px;
 </footer>
 </div>
 <script>
-const gamesData = [
-{
-name: "1v1.lol",
-description: "Battle royale in a fun cartoon style",
-image: "https://lh3.googleusercontent.com/WfoG4FvWAWjZhBCxlyA2bR5fKVXsOqEDo9x49OFmT9EE6B9UA4Dakh6Ap4Wb-iPVJmNnFiU9ADOFrg-WCxbOnrig1Q=s1280-w1280-h800",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/1v1-lol.html"
-},
-{
-name: "Crazy Cattle 3D",
-description: "3D cow racing and action game (this class doesnt work with urls k? )",
-image: "https://camo.githubusercontent.com/8dc2dec0358163a850fafcd616cc6a9c8b5f4ed1a06aa499b7ca0052c1a30fe4/68747470733a2f2f6372617a79636174746c6533642e67616d65732f696d616765732f4372617a79436174746c6533442e706e67",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/crazycattle3d.html"
-},
-{
-name: "Slope",
-description: "3D ball rolling through obstacles",
-image: "https://play-lh.googleusercontent.com/FFrKIqKVpB9HMpaaF0HUc5Sza5W2sM8GFZGfkddU39xPcKCa4BYXQghoWVGlQGpaAA=w526-h296-rw",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/slope.html"
-},
-{
-name: "Gunspin",
-description: "Fast-paced gun spinning action",
-image: "https://images.dwncdn.net/images/t_app-icon-l/p/39d0a468-21ab-466d-a65b-5585c02dd7ad/15864794/gunspin-logo",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/gunspin.html"
-},
-{
-name: "Minecraft",
-description: "The Class of Minecraft is a adventrous class.",
-image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc2yh5O1QzCR-nW9xPlj1CeRAEvKi5qvpDLA6AgLcD_euUS9m1BjwXbx13m2H2OcUzQWQ&usqp=CAU",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/minecraft.html"
-},
-{
-name: "Animal Crossing",
-description: "The Class of Animal Crossing",
-image: "https://img.icons8.com/color/48/animal-crossing.png",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/animalcrossing.html"
-},
-{
-name: "Stealing the Diamonds",
-description: "The Class of STD.",
-image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUlw4jscH5L1CukR9RIiWEwVaxNkacicnS_UgB9HaN9rQHY6TMzOMHjqBJKkTZTbl1cZ7Mjw7SlTPLI1_FLEEpwv2KpUVM72DXkYcvvcow&s=10",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/stealingthediamonds.html"
-},
-{
-name: "Bloxorz",
-description: "The Class of Bloxorz",
-image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdRK3kk9wRGe3w-iLiEbxZUCc5DezoJh8OZg&s",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/bloxorz.html"
-},
-{
-name: "Escape The Prison",
-description: "The Class of Escape The Prison",
-image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSmKS1ehVgekFEJAyhcPNWY5vJQa4jSyq9ug&s",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/escapetheprison.html"
-},
-{
-name: "Infiltrating The Airship",
-description: "The Class of Infiltrating The Airship",
-image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0jMLu1P29TRgnVY7qVjBTEVYAof_4NjYqZcCAUFqKzKFgB4mVn9BVtt2aVOPYK5-OG_GYSOv8ROb24eCmBydf4Ue1HtPsI20s7P-McYE5&s=10",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/infiltratingtheairship.html"
-},
-{
-name: "Worlds Hardest Game 2",
-description: "The Class of Worlds Hardest Game 2",
-image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStiSnyFk05XMxoSlEEHit_OHHDOHDz_lU8Pw&s",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/wrldhardestgame2.html"
-},
-{
-name: "Pac-Man",
-description: "The Class of Pacman",
-image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Original_PacMan.svg/2048px-Original_PacMan.svg.png",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/pacman.html"
-},
-{
-name: "Cookie Clicker",
-description: "The Class of off brand cookie cliker",
-image: "https://cookieclicker.com/img/favicon.ico",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/cookieclicker.html"
-},
-{
-name: "Doom",
-description: "The Class of Doom",
-image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw4g5T6yLKZlOhrF2-AXyo9lSAuOIBUAtsGwtLQkDxOCqdjH0ZsFsqq4S0FJE0AYVemF8PJxF-TGtloLz6wRfwg-yn-SORjW0TSvHiKQvE6A&s=10",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/doom.html"
-},
-{
-name: "Flappy Bird 2",
-description: "The Class of Flappy Bird 2",
-image: "https://flappybird.io/img/favicon.ico",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/flappybird2.html"
-},
-{
-name: "Modded Flappy Bird",
-description: "The Class of Modded Flappy Bird",
-image: "https://flappybird.io/img/favicon.ico",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/moddedflappybird.html"
-},
-{
-name: "Run 3",
-description: "The Class of Run 3",
-image: "https://player03.com/run/3/beta/favicon.png",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/run3.html"
-},
-{
-name: "Super Drift 3D",
-description: "The Class of Super Drift 3D",
-image: "https://files.gamezhero.com/game/8fc/704/8fc7040fa3a311a1/images/240/superdrift3.jpg",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/superdrift3d.html"
-},
-{
-name: "Super Mario 63",
-description: "The Class of Super Mario 63",
-image: "https://img.icons8.com/color/48/super-mario.png",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/supermario63.html"
-},
-{
-name: "Crash Bandicoot",
-description: "The Class of Crash Bandicoot",
-image: "https://img.icons8.com/color/48/crash-bandicoot.png",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/crashbandicoot.html"
-},
-{
-name: "2048",
-description: "The Class of 2048(no worky worky on data urls.)",
-image: "https://play2048.co/favicon180.png",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/2048.html"
-},
-{
-name: "Capybara Clicker 2",
-description: "The Class of Capybara Clicker 2",
-image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIm2pRrdFdA7gDhsH_P9xqlEk4mTOis6uAKQ&s",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/capyclicker2.html"
-},
-{
-name: "Flash Tetris",
-description: "The Class of Flash Tetris",
-image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL5ohYlVET36F5YzyufaSDStQ9M9bwcuQPZwfDfCg4lg_1HpK5O5_CrsFfCiUtcP9Hg1G0mFLbKrD9RuDSXDtRrXWt9WiE1ZddKpyG8oEAEA&s=10",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/flashtetris.html"
-},
-{
-name: "Atom Clicker",
-description: "The Class of Atom Clicker",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/atomclicker.html"
-},
-{
-name: "Mouse Clicker",
-description: "The Class of Mouse Clicker",
-image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdezJRsahh82E2E-YbFndSDcDOqiNonWK6-Q&s",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/mouseclicker.html"
-},
-{
-name: "Bitlife",
-description: "The Class of Bitlife",
-image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHVuYfCjqRtitTaMdGRRaYuVYbheZ9_PhnLA&s",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/bitlife.html"
-},
-{
-name: "Geometry Dash",
-description: "The Class of Geometry Dash",
-image: "https://raw.githubusercontent.com/davidspoofy/assets/refs/heads/main/gd.jpeg",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/geometrydash.html"
-},
-{
-name: "Geometry Dash V3.7",
-description: "The Class of Geometry Dash v3.7",
-image: "https://raw.githubusercontent.com/davidspoofy/assets/refs/heads/main/gd.jpeg",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/V3.7.html"
-},
-{
-name: "Chrome Dinosaur",
-description: "The Class of Chrome Dinosaur",
-image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHne41nuLqYRWwsSuUfgzekbBPm6bhrpdNYA&s",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/chromedino.html"
-},
-{
-name: "Race Survival Arena King",
-description: "The Class of Race Survival Arena King",
-image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvq11J_KG17qx3Dbbjxb8e6CD0ZJXWxiSqOchVx98RQj8WtExFiQ9v3-6LCAQwN5ehjzs&usqp=CAU",
-url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/racesurvivalarena-king.html"
-}
-];
+/*  main.js  –  full replacement file  */
+/*  loads games.json, builds cards, keeps every other feature you had  */
+
+/* ---------- 1.  load games ---------- */
+let gamesData = [];                       // will be filled after fetch
+fetch('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/games.json')                       // <-- put games.json in same folder
+  .then(res => res.json())
+  .then(data => {
+      gamesData = data;                   // store it
+      generateGameCards();                // paint the grid
+  })
+  .catch(err => console.error('Games list failed to load:', err));
+
+/* ---------- 2.  build the grid ---------- */
 function generateGameCards() {
-const gamesGrid = document.getElementById('gamesGrid');
-gamesGrid.innerHTML = '';
-gamesData.forEach(game => {
-const gameCard = document.createElement('div');
-gameCard.className = 'game-card';
-gameCard.onclick = () => launchGame(game.url);
-gameCard.innerHTML = `
-<img src="${game.image}" alt="${game.name}" class="game-icon">
-<div class="game-title"><i>🎮</i> ${game.name}</div>
-<div class="game-desc">${game.description}</div>
-`;
-gamesGrid.appendChild(gameCard);
-});
+  const grid = document.getElementById('gamesGrid');
+  grid.innerHTML = '';                    // wipe old cards (if any)
+  gamesData.forEach(g => {
+      const card = document.createElement('div');
+      card.className = 'game-card';
+      card.onclick = () => launchGame(g.url);
+      card.innerHTML = `
+        <img src="${g.image}" alt="${g.name}" class="game-icon">
+        <div class="game-title"><i>🎮</i> ${g.name}</div>
+        <div class="game-desc">${g.description}</div>`;
+      grid.appendChild(card);
+  });
 }
-const modal = document.getElementById('settingsModal');
-const openSettingsBtn = document.getElementById('openSettings');
-const closeModalBtn = document.querySelector('.close-modal');
-const viewPatchNotesBtn = document.getElementById('viewPatchNotesBtn');
-const patchNotesSection = document.getElementById('patchNotesSection');
-let patchNotesVisible = false;
-const warningModal = document.getElementById('warningModal');
-const warningCloseBtn = document.querySelector('.warning-close-btn');
-openSettingsBtn.addEventListener('click', () => {
-modal.style.display = 'flex';
-});
-closeModalBtn.addEventListener('click', () => {
-modal.style.display = 'none';
-patchNotesSection.style.display = 'none';
-patchNotesVisible = false;
-viewPatchNotesBtn.textContent = 'View Patch Notes';
-});
-window.addEventListener('click', (event) => {
-if (event.target === modal) {
-modal.style.display = 'none';
-patchNotesSection.style.display = 'none';
-patchNotesVisible = false;
-viewPatchNotesBtn.textContent = 'View Patch Notes';
-}
-});
-viewPatchNotesBtn.addEventListener('click', () => {
-if (patchNotesVisible) {
-patchNotesSection.style.display = 'none';
-viewPatchNotesBtn.textContent = 'View Patch Notes';
-} else {
-patchNotesSection.style.display = 'block';
-viewPatchNotesBtn.textContent = 'Hide Patch Notes';
-}
-patchNotesVisible = !patchNotesVisible;
-});
+
+/* ---------- 3.  launch a game ---------- */
 function launchGame(gameUrl) {
-const newWindow = window.open('about:blank', '_blank');
-fetch(gameUrl)
-.then(response => response.text())
-.then(html => {
-const doc = newWindow.document;
-doc.open();
-doc.write(`
-<!DOCTYPE html>
+  const win = window.open('about:blank', '_blank');
+  fetch(gameUrl)
+    .then(r => r.text())
+    .then(html => {
+        const d = win.document;
+        d.open();
+        d.write(`<!DOCTYPE html>
 <html>
 <head>
-<title>Home</title>
-<link rel="icon" href="https://img.icons8.com/color/48/google-classroom.png" type="image/x-icon">
+  <title>Home</title>
+  <link rel="icon" href="https://img.icons8.com/color/48/google-classroom.png" type="image/x-icon">
 </head>
 <body>${html}</body>
-</html>
-`);
-doc.close();
-})
-.catch(error => {
-console.error('Error loading game:', error);
-alert('Failed to load the game. Please try again.');
-});
+</html>`);
+        d.close();
+    })
+    .catch(() => alert('Failed to load the game. Please try again.'));
 }
-warningCloseBtn.addEventListener('click', () => {
-warningModal.style.display = 'none';
-});
-window.addEventListener('click', (event) => {
-if (event.target === warningModal) {
-warningModal.style.display = 'none';
-}
-});
-window.addEventListener('load', () => {
-warningModal.style.display = 'flex';
-});
-window.addEventListener('DOMContentLoaded', () => {
-generateGameCards();
-});
+
+/* ---------- 4.  modals ---------- */
+const modal          = document.getElementById('settingsModal');
+const openBtn        = document.getElementById('openSettings');
+const closeBtn       = document.querySelector('.close-modal');
+const patchBtn       = document.getElementById('viewPatchNotesBtn');
+const patchSection   = document.getElementById('patchNotesSection');
+let patchVisible     = false;
+
+openBtn.onclick = () => modal.style.display = 'flex';
+closeBtn.onclick = () => { modal.style.display = 'none'; hidePatch(); };
+window.onclick  = e => { if (e.target === modal) { modal.style.display = 'none'; hidePatch(); } };
+
+patchBtn.onclick = () => {
+  patchVisible ? hidePatch() : showPatch();
+  patchVisible = !patchVisible;
+};
+function showPatch() { patchSection.style.display = 'block'; patchBtn.textContent = 'Hide Patch Notes'; }
+function hidePatch() { patchSection.style.display = 'none';  patchBtn.textContent = 'View Patch Notes'; }
+
+/* ---------- 5.  warning modal ---------- */
+const warnModal = document.getElementById('warningModal');
+const warnClose = document.querySelector('.warning-close-btn');
+warnClose.onclick = () => warnModal.style.display = 'none';
+window.onclick = e => { if (e.target === warnModal) warnModal.style.display = 'none'; };
+window.addEventListener('load', () => warnModal.style.display = 'flex');
+
+/* ---------- 6.  shooting stars ---------- */
 function createShootingStar() {
   const star = document.createElement('div');
   star.className = 'shooting-star';
   const side = Math.floor(Math.random() * 4);
-  let startX, startY, endX, endY;
-  switch(side) {
-    case 0: 
-      startX = Math.random() * window.innerWidth;
-      startY = 0;
-      endX = startX + (Math.random() - 0.5) * 500; // Random angle
-      endY = window.innerHeight;
-      break;
-    case 1: 
-      startX = window.innerWidth;
-      startY = Math.random() * window.innerHeight;
-      endX = startX - (Math.random() - 0.5) * 500;
-      endY = startY + (Math.random() - 0.5) * 500;
-      break;
-    case 2:
-      startX = Math.random() * window.innerWidth;
-      startY = window.innerHeight;
-      endX = startX + (Math.random() - 0.5) * 500;
-      endY = 0;
-      break;
-    case 3: 
-      startX = 0;
-      startY = Math.random() * window.innerHeight;
-      endX = startX + (Math.random() - 0.5) * 500;
-      endY = startY + (Math.random() - 0.5) * 500;
-      break;
+  let sx, sy, ex, ey;
+  switch (side) {
+    case 0: sx = Math.random() * innerWidth; sy = 0; ex = sx + (Math.random() - .5) * 500; ey = innerHeight; break;
+    case 1: sx = innerWidth; sy = Math.random() * innerHeight; ex = sx - (Math.random() - .5) * 500; ey = sy + (Math.random() - .5) * 500; break;
+    case 2: sx = Math.random() * innerWidth; sy = innerHeight; ex = sx + (Math.random() - .5) * 500; ey = 0; break;
+    case 3: sx = 0; sy = Math.random() * innerHeight; ex = sx + (Math.random() - .5) * 500; ey = sy + (Math.random() - .5) * 500; break;
   }
-  star.style.left = `${startX}px`;
-  star.style.top = `${startY}px`;
-  star.style.setProperty('--tx', `${endX - startX}px`);
-  star.style.setProperty('--ty', `${endY - startY}px`);
-  const duration = 1 + Math.random() * 2;
-  const delay = Math.random() * 5; 
-  star.style.animation = `shoot ${duration}s ease-out ${delay}s forwards`;
+  star.style.left = `${sx}px`; star.style.top = `${sy}px`;
+  star.style.setProperty('--tx', `${ex - sx}px`); star.style.setProperty('--ty', `${ey - sy}px`);
+  const dur = 1 + Math.random() * 2, delay = Math.random() * 5;
+  star.style.animation = `shoot ${dur}s ease-out ${delay}s forwards`;
   document.body.appendChild(star);
-  setTimeout(() => {
-    star.remove();
-  }, (delay + duration) * 1000);
+  setTimeout(() => star.remove(), (delay + dur) * 1000);
 }
-let shootingStarInterval = setInterval(() => {
-  crateShootingStar();
-}, 500 + Math.random() * 1000);
+setInterval(createShootingStar, 500 + Math.random() * 1000);
 
 </script>
 </body>
