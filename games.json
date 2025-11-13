@@ -1,5 +1,5 @@
-const gamesData = [
-{
+[
+  {
 name: "1v1.lol",
 description: "Battle royale in a fun cartoon style",
 image: "https://lh3.googleusercontent.com/WfoG4FvWAWjZhBCxlyA2bR5fKVXsOqEDo9x49OFmT9EE6B9UA4Dakh6Ap4Wb-iPVJmNnFiU9ADOFrg-WCxbOnrig1Q=s1280-w1280-h800",
@@ -178,4 +178,4 @@ description: "The Class of Race Survival Arena King",
 image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvq11J_KG17qx3Dbbjxb8e6CD0ZJXWxiSqOchVx98RQj8WtExFiQ9v3-6LCAQwN5ehjzs&usqp=CAU",
 url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/racesurvivalarena-king.html"
 }
-];
+  ]
