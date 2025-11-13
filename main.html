@@ -576,23 +576,20 @@ padding: 15px;
 </footer>
 </div>
 <script>
-/*  main.js  –  full replacement file  */
-/*  loads games.json, builds cards, keeps every other feature you had  */
-
 /* ---------- 1.  load games ---------- */
-let gamesData = [];                       // will be filled after fetch
-fetch('https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/games.json')                       // <-- put games.json in same folder
+let gamesData = [];
+fetch('https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/games.json')        
   .then(res => res.json())
   .then(data => {
-      gamesData = data;                   // store it
-      generateGameCards();                // paint the grid
+      gamesData = data;                   
+      generateGameCards();              
   })
   .catch(err => console.error('Games list failed to load:', err));
 
 /* ---------- 2.  build the grid ---------- */
 function generateGameCards() {
   const grid = document.getElementById('gamesGrid');
-  grid.innerHTML = '';                    // wipe old cards (if any)
+  grid.innerHTML = '';                    
   gamesData.forEach(g => {
       const card = document.createElement('div');
       card.className = 'game-card';
