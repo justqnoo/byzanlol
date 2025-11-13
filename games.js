@@ -1,0 +1,181 @@
+const gamesData = [
+{
+name: "1v1.lol",
+description: "Battle royale in a fun cartoon style",
+image: "https://lh3.googleusercontent.com/WfoG4FvWAWjZhBCxlyA2bR5fKVXsOqEDo9x49OFmT9EE6B9UA4Dakh6Ap4Wb-iPVJmNnFiU9ADOFrg-WCxbOnrig1Q=s1280-w1280-h800",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/1v1-lol.html"
+},
+{
+name: "Crazy Cattle 3D",
+description: "3D cow racing and action game (this class doesnt work with urls k? )",
+image: "https://camo.githubusercontent.com/8dc2dec0358163a850fafcd616cc6a9c8b5f4ed1a06aa499b7ca0052c1a30fe4/68747470733a2f2f6372617a79636174746c6533642e67616d65732f696d616765732f4372617a79436174746c6533442e706e67",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/crazycattle3d.html"
+},
+{
+name: "Slope",
+description: "3D ball rolling through obstacles",
+image: "https://play-lh.googleusercontent.com/FFrKIqKVpB9HMpaaF0HUc5Sza5W2sM8GFZGfkddU39xPcKCa4BYXQghoWVGlQGpaAA=w526-h296-rw",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/slope.html"
+},
+{
+name: "Gunspin",
+description: "Fast-paced gun spinning action",
+image: "https://images.dwncdn.net/images/t_app-icon-l/p/39d0a468-21ab-466d-a65b-5585c02dd7ad/15864794/gunspin-logo",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/gunspin.html"
+},
+{
+name: "Minecraft",
+description: "The Class of Minecraft is a adventrous class.",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc2yh5O1QzCR-nW9xPlj1CeRAEvKi5qvpDLA6AgLcD_euUS9m1BjwXbx13m2H2OcUzQWQ&usqp=CAU",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/minecraft.html"
+},
+{
+name: "Animal Crossing",
+description: "The Class of Animal Crossing",
+image: "https://img.icons8.com/color/48/animal-crossing.png",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/animalcrossing.html"
+},
+{
+name: "Stealing the Diamonds",
+description: "The Class of STD.",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUlw4jscH5L1CukR9RIiWEwVaxNkacicnS_UgB9HaN9rQHY6TMzOMHjqBJKkTZTbl1cZ7Mjw7SlTPLI1_FLEEpwv2KpUVM72DXkYcvvcow&s=10",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/stealingthediamonds.html"
+},
+{
+name: "Bloxorz",
+description: "The Class of Bloxorz",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdRK3kk9wRGe3w-iLiEbxZUCc5DezoJh8OZg&s",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/bloxorz.html"
+},
+{
+name: "Escape The Prison",
+description: "The Class of Escape The Prison",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSmKS1ehVgekFEJAyhcPNWY5vJQa4jSyq9ug&s",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/escapetheprison.html"
+},
+{
+name: "Infiltrating The Airship",
+description: "The Class of Infiltrating The Airship",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0jMLu1P29TRgnVY7qVjBTEVYAof_4NjYqZcCAUFqKzKFgB4mVn9BVtt2aVOPYK5-OG_GYSOv8ROb24eCmBydf4Ue1HtPsI20s7P-McYE5&s=10",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/infiltratingtheairship.html"
+},
+{
+name: "Worlds Hardest Game 2",
+description: "The Class of Worlds Hardest Game 2",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStiSnyFk05XMxoSlEEHit_OHHDOHDz_lU8Pw&s",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/wrldhardestgame2.html"
+},
+{
+name: "Pac-Man",
+description: "The Class of Pacman",
+image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Original_PacMan.svg/2048px-Original_PacMan.svg.png",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/pacman.html"
+},
+{
+name: "Cookie Clicker",
+description: "The Class of off brand cookie cliker",
+image: "https://cookieclicker.com/img/favicon.ico",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/cookieclicker.html"
+},
+{
+name: "Doom",
+description: "The Class of Doom",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw4g5T6yLKZlOhrF2-AXyo9lSAuOIBUAtsGwtLQkDxOCqdjH0ZsFsqq4S0FJE0AYVemF8PJxF-TGtloLz6wRfwg-yn-SORjW0TSvHiKQvE6A&s=10",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/doom.html"
+},
+{
+name: "Flappy Bird 2",
+description: "The Class of Flappy Bird 2",
+image: "https://flappybird.io/img/favicon.ico",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/flappybird2.html"
+},
+{
+name: "Modded Flappy Bird",
+description: "The Class of Modded Flappy Bird",
+image: "https://flappybird.io/img/favicon.ico",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/moddedflappybird.html"
+},
+{
+name: "Run 3",
+description: "The Class of Run 3",
+image: "https://player03.com/run/3/beta/favicon.png",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/run3.html"
+},
+{
+name: "Super Drift 3D",
+description: "The Class of Super Drift 3D",
+image: "https://files.gamezhero.com/game/8fc/704/8fc7040fa3a311a1/images/240/superdrift3.jpg",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/superdrift3d.html"
+},
+{
+name: "Super Mario 63",
+description: "The Class of Super Mario 63",
+image: "https://img.icons8.com/color/48/super-mario.png",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/supermario63.html"
+},
+{
+name: "Crash Bandicoot",
+description: "The Class of Crash Bandicoot",
+image: "https://img.icons8.com/color/48/crash-bandicoot.png",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/crashbandicoot.html"
+},
+{
+name: "2048",
+description: "The Class of 2048(no worky worky on data urls.)",
+image: "https://play2048.co/favicon180.png",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/2048.html"
+},
+{
+name: "Capybara Clicker 2",
+description: "The Class of Capybara Clicker 2",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIm2pRrdFdA7gDhsH_P9xqlEk4mTOis6uAKQ&s",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/capyclicker2.html"
+},
+{
+name: "Flash Tetris",
+description: "The Class of Flash Tetris",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL5ohYlVET36F5YzyufaSDStQ9M9bwcuQPZwfDfCg4lg_1HpK5O5_CrsFfCiUtcP9Hg1G0mFLbKrD9RuDSXDtRrXWt9WiE1ZddKpyG8oEAEA&s=10",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/flashtetris.html"
+},
+{
+name: "Atom Clicker",
+description: "The Class of Atom Clicker",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/atomclicker.html"
+},
+{
+name: "Mouse Clicker",
+description: "The Class of Mouse Clicker",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdezJRsahh82E2E-YbFndSDcDOqiNonWK6-Q&s",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/mouseclicker.html"
+},
+{
+name: "Bitlife",
+description: "The Class of Bitlife",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHVuYfCjqRtitTaMdGRRaYuVYbheZ9_PhnLA&s",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/bitlife.html"
+},
+{
+name: "Geometry Dash",
+description: "The Class of Geometry Dash",
+image: "https://raw.githubusercontent.com/davidspoofy/assets/refs/heads/main/gd.jpeg",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/geometrydash.html"
+},
+{
+name: "Geometry Dash V3.7",
+description: "The Class of Geometry Dash v3.7",
+image: "https://raw.githubusercontent.com/davidspoofy/assets/refs/heads/main/gd.jpeg",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/V3.7.html"
+},
+{
+name: "Chrome Dinosaur",
+description: "The Class of Chrome Dinosaur",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHne41nuLqYRWwsSuUfgzekbBPm6bhrpdNYA&s",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/chromedino.html"
+},
+{
+name: "Race Survival Arena King",
+description: "The Class of Race Survival Arena King",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvq11J_KG17qx3Dbbjxb8e6CD0ZJXWxiSqOchVx98RQj8WtExFiQ9v3-6LCAQwN5ehjzs&usqp=CAU",
+url: "https://raw.githubusercontent.com/davidspoofy/byzanlol/refs/heads/main/g4mes/racesurvivalarena-king.html"
+}
+];
