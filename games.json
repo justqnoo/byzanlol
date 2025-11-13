@@ -158,13 +158,13 @@
   {
     "name": "Geometry Dash",
     "description": "The Class of Geometry Dash",
-    "image": "https://raw.githubusercontent.com/justqnoo/assets/refs/heads/main/gd.jpeg",
+    "image": "https://raw.githubusercontent.com/davidspoofy/assets/refs/heads/main/gd.jpeg",
     "url": "https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/g4mes/geometrydash.html"
   },
   {
     "name": "Geometry Dash V3.7",
     "description": "The Class of Geometry Dash v3.7",
-    "image": "https://raw.githubusercontent.com/justqnoo/assets/refs/heads/main/gd.jpeg",
+    "image": "https://raw.githubusercontent.com/davidspoofy/assets/refs/heads/main/gd.jpeg",
     "url": "https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/g4mes/V3.7.html"
   },
   {
@@ -184,5 +184,17 @@
     "description": "The Class of Google Snake",
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIWIX9KZVWVDyHEaZ-7wvAVPVuxu6Bywv77Q&s",
     "url": "https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/g4mes/googlesnake.html"
+  },
+    {
+    "name": "Fire Boy & Water Girl 3",
+    "description": "The Class of Fire Boy & Water Girl 3",
+    "image": "https://static.tvtropes.org/pmwiki/pub/images/img_0755.png",
+    "url": "https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/g4mes/fireandwater.html"
+  },
+      {
+    "name": "Papa's Freezeria",
+    "description": "The Class of Papa's Freezeria",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-tEzR7oE-aFM-tke5q7CUFlOoP5eSRwy8Tg&s",
+    "url": "https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/g4mes/papasfreezeria.html"
   }
 ]
