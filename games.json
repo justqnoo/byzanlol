@@ -178,5 +178,11 @@
     "description": "The Class of Race Survival Arena King",
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvq11J_KG17qx3Dbbjxb8e6CD0ZJXWxiSqOchVx98RQj8WtExFiQ9v3-6LCAQwN5ehjzs&usqp=CAU",
     "url": "https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/g4mes/racesurvivalarena-king.html"
+  },
+    {
+    "name": "Google Snake",
+    "description": "The Class of Google Snake",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIWIX9KZVWVDyHEaZ-7wvAVPVuxu6Bywv77Q&s",
+    "url": "https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/g4mes/googlesnake.html"
   }
 ]
