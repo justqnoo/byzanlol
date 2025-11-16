@@ -8,7 +8,7 @@ How can byzan do it? byzan.lol can do this thanks to [maddox05](https://github.c
 the *byzan.lol* Features!
 - [Lunar](https://github.com/davidspoofy/lunar) intergration where you can watch youtube videos soon!
 - 30+ Games!
-- Under 2000 lines of codes!
+- Under 1.3k lines of code!
 
 
 ## MIT License
@@ -23,4 +23,4 @@ data:text/html,<html>%0A    <head>%0A        <title>Loading<%2Ftitle>%0A<link re
 https://tencenttechnologies.edgeone.app/
 ```
 # Password
-How to access the site? A: click on the site then type "erer111" then press rightshift doesn work on ipads unless you have a keyboard irl
+How to access the site? A: click on the site then type "erer111" then press rightshift doesn work on ipads with virtual keyboards.
