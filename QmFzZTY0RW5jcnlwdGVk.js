@@ -10,9 +10,7 @@ const hiddenIndicator = document.getElementById('hiddenIndicator');
 setupEventListeners();
 passwordInput.focus();
 
-
 function setupEventListeners() {
-
     passwordInput.addEventListener('blur', () => {
         setTimeout(() => passwordInput.focus(), 10);
     });
@@ -29,14 +27,12 @@ function setupEventListeners() {
             checkPassword();
         }
     });
-
 }
-
 
 function checkPassword() {
     if (passwordInput.value === correctPassword) {
         hiddenIndicator.style.color = "green";
-        hiddenIndicator.textContent = ""; 
+        hiddenIndicator.textContent = "";
         setTimeout(loadSecretContent, 1000);
     } else {
         showTemporaryFeedback("red", 2000);
@@ -47,43 +43,37 @@ function checkPassword() {
 
 function showTemporaryFeedback(color, duration) {
     hiddenIndicator.style.color = color;
-    hiddenIndicator.textContent = ""; 
+    hiddenIndicator.textContent = "";
     setTimeout(() => {
         hiddenIndicator.style.color = "rgba(0,0,0,0.2)";
-        hiddenIndicator.textContent = ""; 
+        hiddenIndicator.textContent = "";
     }, duration);
 }
 
 async function loadSecretContent() {
     try {
-        const response = await fetch(SECRET_CONTENT_URL + '?' + Date.now()); 
-        if (!response.ok) throw new Error("Failed to fetch content: " + response.statusText);
+        const response = await fetch(SECRET_CONTENT_URL + '?' + Date.now());
+        if (!response.ok) throw new Error("Failed: " + response.status);
+        
         const html = await response.text();
-
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
-        const fetchedFavicon = doc.querySelector('link[rel="icon"]');
-
-        const newWindow = window.open('about:blank', '_blank');
-        if (newWindow) {
-            newWindow.document.open();
-            newWindow.document.write(html);
-            
-            if (fetchedFavicon) {
-                 const newFaviconLink = newWindow.document.createElement('link');
-                 newFaviconLink.rel = 'icon';
-                 newFaviconLink.href = fetchedFavicon.href;
-                 newFaviconLink.type = fetchedFavicon.type || 'image/x-icon';
-                 newWindow.document.head.appendChild(newFaviconLink);
-            }
-            
-            newWindow.document.close();
-        } else {
-            console.error("Failed to open a new window. Please allow popups.");
-            showTemporaryFeedback("orange", 3000); 
+        
+        const fetchedFavicon = doc.querySelector('link[rel="icon"], link[rel="shortcut icon"]');
+        
+        document.open();
+        document.write(html);
+        document.close();
+        
+        if (fetchedFavicon && window.location.href === document.referrer) {
+            const newFavicon = document.createElement('link');
+            newFavicon.rel = fetchedFavicon.rel;
+            newFavicon.href = fetchedFavicon.href;
+            if (fetchedFavicon.type) newFavicon.type = fetchedFavicon.type;
+            document.head.appendChild(newFavicon);
         }
     } catch (error) {
-        console.error("Error loading secret content:", error);
+        console.error("Error:", error);
         showTemporaryFeedback("red", 3000);
     }
 }
