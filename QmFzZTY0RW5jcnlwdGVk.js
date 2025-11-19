@@ -1,4 +1,4 @@
-window.addEventListener('load', function() {
+setTimeout(() => {
     const correctPassword = window.correctPassword || "erer111";
     const SECRET_CONTENT_URL = 'https://raw.githubusercontent.com/justqnoo/byzanlol/main/main.html';
 
@@ -74,4 +74,4 @@ window.addEventListener('load', function() {
             showTemporaryFeedback("red", 3000);
         }
     }
-});
+}, 500); // Wait 500ms for external script to load
