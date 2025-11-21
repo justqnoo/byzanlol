@@ -12,7 +12,6 @@
    </head>
    <body>
       <button id="openSettings" style="position: fixed; top: 20px; left: 20px; background: linear-gradient(135deg, #1a0a2e, #2c0a47); padding: 10px 15px; border-radius: 30px; border: 1px solid rgba(147, 112, 219, 0.3); color: white; cursor: pointer; z-index: 1000; transition: all 0.3s ease;">⚙️ Settings</button>
-      
       <div id="settingsModal" class="modal">
          <div class="modal-content">
             <button class="close-modal">&times;</button>
@@ -20,7 +19,6 @@
                <button class="tab-button active" data-tab="settings">Settings</button>
                <button class="tab-button" data-tab="gradient">Gradient Customization</button>
             </div>
-            
             <div id="settingsTab" class="tab-content active">
                <button id="viewPatchNotesBtn">View Patch Notes</button>
                <div id="patchNotesSection" class="patch-notes-section">
@@ -41,8 +39,22 @@
                      </li>
                   </ul>
                </div>
+               <!-- Cloaking Settings Section -->
+               <div style="margin-top: 20px; padding: 15px; background: rgba(50,25,70,.5); border-radius: 8px;">
+                  <h3>Cloaking Settings</h3>
+                  <div style="display: flex; flex-direction: column; gap: 10px;">
+                     <div>
+                        <label for="cloakTitle" style="display: block; margin-bottom: 5px;">Title:</label>
+                        <input type="text" id="cloakTitle" placeholder="Enter page title" style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid rgba(147,112,219,.3); background: rgba(30,15,50,.7); color: white;">
+                     </div>
+                     <div>
+                        <label for="cloakFavicon" style="display: block; margin-bottom: 5px;">Favicon URL:</label>
+                        <input type="text" id="cloakFavicon" placeholder="Enter favicon URL" style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid rgba(147,112,219,.3); background: rgba(30,15,50,.7); color: white;">
+                     </div>
+                     <button id="applyCloak" style="background: linear-gradient(135deg, #1a0a2e, #2c0a47); border: 1px solid rgba(147,112,219, 0.3); color: white; padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: all 0.3s ease;">Apply Cloak</button>
+                  </div>
+               </div>
             </div>
-            
             <div id="gradientTab" class="tab-content">
                <div class="gradient-controls">
                   <h3>Gradient Presets</h3>
@@ -57,7 +69,6 @@
                      <div class="gradient-preset" style="background: linear-gradient(135deg, #a8e6cf, #56ab91, #a8e6cf);" data-colors='["#a8e6cf", "#56ab91", "#a8e6cf"]'></div>
                      <div class="gradient-preset" style="background: linear-gradient(135deg, #ffd93d, #ff9a8b, #ffd93d);" data-colors='["#ffd93d", "#ff9a8b", "#ffd93d"]'></div>
                   </div>
-                  
                   <h3>Custom Gradient</h3>
                   <div class="color-picker-group">
                      <div class="color-picker">
@@ -73,7 +84,6 @@
                         <input type="color" class="color-input" id="color3" value="#1a0a2e">
                      </div>
                   </div>
-                  
                   <div class="gradient-actions">
                      <button class="gradient-btn" id="applyGradient">Apply Gradient</button>
                      <button class="gradient-btn" id="resetGradient">Reset to Default</button>
@@ -82,7 +92,6 @@
             </div>
          </div>
       </div>
-
       <div id="warningModal" class="modal">
          <div class="warning-modal-content">
             <h3>Update V1.1</h3>
@@ -94,7 +103,6 @@
             <button class="warning-close-btn">Thank you!</button>
          </div>
       </div>
-      
       <div class="container">
          <header>
             <h1 id="mainTitle">byzan.lol</h1>
@@ -111,9 +119,8 @@
             <p id="footerText">byzan.lol &copy; 2025</p>
          </footer>
       </div>
-      
       <script>
-         /* ---------- 1.  load games ---------- */
+         /* ---------- 1. load games ---------- */
          let gamesData = [];
          fetch('https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/games.json')
          .then(res => res.json())
@@ -122,8 +129,7 @@
          generateGameCards();
          })
          .catch(err => console.error('Games list failed to load:', err));
-         
-         /* ---------- 2.  build the grid ---------- */
+         /* ---------- 2. build the grid ---------- */
          function generateGameCards() {
          const grid = document.getElementById('gamesGrid');
          grid.innerHTML = '';
@@ -139,8 +145,7 @@
                  grid.appendChild(card);
                  });
                  }
-                 
-/* ---------- 3.  launch the game ---------- */
+/* ---------- 3. launch the game ---------- */
 function launchGame(gameUrl) {
     const win = window.open('about:blank', '_blank');
     fetch(gameUrl)
@@ -148,7 +153,6 @@ function launchGame(gameUrl) {
     .then(html => {
         const d = win.document;
         d.open();
-        
         d.write(`<!DOCTYPE html>
         <html>
           <head>
@@ -162,21 +166,18 @@ function launchGame(gameUrl) {
     })
     .catch(() => alert('Failed to load the game. Please try again.'));
 }
-                       
-                       /* ---------- 4.  modals ---------- */
-                       const modal          = document.getElementById('settingsModal');
-                       const openBtn        = document.getElementById('openSettings');
-                       const closeBtn       = document.querySelector('.close-modal');
-                       const patchBtn       = document.getElementById('viewPatchNotesBtn');
-                       const patchSection   = document.getElementById('patchNotesSection');
-                       const tabButtons     = document.querySelectorAll('.tab-button');
-                       const tabContents    = document.querySelectorAll('.tab-content');
-                       let patchVisible     = false;
-                       
+                       /* ---------- 4. modals ---------- */
+                       const modal = document.getElementById('settingsModal');
+                       const openBtn = document.getElementById('openSettings');
+                       const closeBtn = document.querySelector('.close-modal');
+                       const patchBtn = document.getElementById('viewPatchNotesBtn');
+                       const patchSection = document.getElementById('patchNotesSection');
+                       const tabButtons = document.querySelectorAll('.tab-button');
+                       const tabContents = document.querySelectorAll('.tab-content');
+                       let patchVisible = false;
                        openBtn.onclick = () => modal.style.display = 'flex';
                        closeBtn.onclick = () => { modal.style.display = 'none'; hidePatch(); };
-                       window.onclick  = e => { if (e.target === modal) { modal.style.display = 'none'; hidePatch(); } };
-                       
+                       window.onclick = e => { if (e.target === modal) { modal.style.display = 'none'; hidePatch(); } };
                        // Tab switching
                        tabButtons.forEach(button => {
                          button.addEventListener('click', () => {
@@ -187,23 +188,19 @@ function launchGame(gameUrl) {
                            document.getElementById(`${tab}Tab`).classList.add('active');
                          });
                        });
-                       
                        patchBtn.onclick = () => {
                          patchVisible ? hidePatch() : showPatch();
                          patchVisible = !patchVisible;
                        };
-                       
                        function showPatch() { patchSection.style.display = 'block'; patchBtn.textContent = 'Hide Patch Notes'; }
-                       function hidePatch() { patchSection.style.display = 'none';  patchBtn.textContent = 'View Patch Notes'; }
-                       
-                       /* ---------- 5.  warning modal ---------- */
+                       function hidePatch() { patchSection.style.display = 'none'; patchBtn.textContent = 'View Patch Notes'; }
+                       /* ---------- 5. warning modal ---------- */
                        const warnModal = document.getElementById('warningModal');
                        const warnClose = document.querySelector('.warning-close-btn');
                        warnClose.onclick = () => warnModal.style.display = 'none';
                        window.onclick = e => { if (e.target === warnModal) warnModal.style.display = 'none'; };
                        window.addEventListener('load', () => warnModal.style.display = 'flex');
-                       
-                       /* ---------- 6.  shooting stars ---------- */
+                       /* ---------- 6. shooting stars ---------- */
                        function createShootingStar() {
                          const star = document.createElement('div');
                          star.className = 'shooting-star';
@@ -223,8 +220,7 @@ function launchGame(gameUrl) {
                          setTimeout(() => star.remove(), (delay + dur) * 1000);
                        }
                        setInterval(createShootingStar, 700 + Math.random() * 750);
-                       
-                       /* ---------- 7.  gradient customization ---------- */
+                       /* ---------- 7. gradient customization ---------- */
                        const gradientPresets = document.querySelectorAll('.gradient-preset');
                        const colorInputs = document.querySelectorAll('.color-input');
                        const applyBtn = document.getElementById('applyGradient');
@@ -232,21 +228,21 @@ function launchGame(gameUrl) {
                        const mainTitle = document.getElementById('mainTitle');
                        const subtitleText = document.getElementById('subtitleText');
                        const footerText = document.getElementById('footerText');
-                       
+
                        function getColorBrightness(hex) {
                          const r = parseInt(hex.substr(1, 2), 16);
                          const g = parseInt(hex.substr(3, 2), 16);
                          const b = parseInt(hex.substr(5, 2), 16);
                          return (r * 299 + g * 587 + b * 114) / 1000;
                        }
-                       
+
                        function getGradientBrightness(colors) {
                          const brightness1 = getColorBrightness(colors[0]);
                          const brightness2 = getColorBrightness(colors[1]);
                          const brightness3 = getColorBrightness(colors[2]);
                          return (brightness1 + brightness2 + brightness3) / 3;
                        }
-                       
+
                        function adjustColorBrightness(hex, percent) {
                          const num = parseInt(hex.replace("#", ""), 16);
                          const amt = Math.round(2.55 * percent);
@@ -260,7 +256,7 @@ function launchGame(gameUrl) {
                            (B < 255 ? (B < 1 ? 0 : B) : 255)
                          ).toString(16).slice(1);
                        }
-                       
+
                        function mixWithBlack(hex, percent) {
                          const num = parseInt(hex.replace("#", ""), 16);
                          const R = Math.round((num >> 16) * (1 - percent/100));
@@ -273,153 +269,201 @@ function launchGame(gameUrl) {
                            (B < 255 ? (B < 1 ? 0 : B) : 255)
                          ).toString(16).slice(1);
                        }
-                       
+
                        function applyGradient(colors) {
                          const gradient = `linear-gradient(135deg, ${colors[0]}, ${colors[1]}, ${colors[2]})`;
                          const avgBrightness = getGradientBrightness(colors);
-                         
+
+                         // Calculate a subtle "glow" color based on the average of the gradient colors
+                         const avgR = (parseInt(colors[0].substring(1, 3), 16) + parseInt(colors[1].substring(1, 3), 16) + parseInt(colors[2].substring(1, 3), 16)) / 3;
+                         const avgG = (parseInt(colors[0].substring(3, 5), 16) + parseInt(colors[1].substring(3, 5), 16) + parseInt(colors[2].substring(3, 5), 16)) / 3;
+                         const avgB = (parseInt(colors[0].substring(5, 7), 16) + parseInt(colors[1].substring(5, 7), 16) + parseInt(colors[2].substring(5, 7), 16)) / 3;
+                         const avgHex = "#" + Math.round(avgR).toString(16).padStart(2, '0') + Math.round(avgG).toString(16).padStart(2, '0') + Math.round(avgB).toString(16).padStart(2, '0');
+                         const glowColor = avgHex;
+
+                         // Apply main background gradient
                          document.body.style.background = gradient;
-                         
+
+                         // Apply gradient to modals and UI elements
                          document.querySelectorAll('.modal-content, .warning-modal-content').forEach(el => {
                            el.style.background = gradient;
                          });
-                         
-                         document.querySelectorAll('.tab-button, .close-modal, .warning-close-btn, #viewPatchNotesBtn, .section-header, .modal-header, .gradient-btn').forEach(el => {
+
+                         document.querySelectorAll('.tab-button, .close-modal, .warning-close-btn, #viewPatchNotesBtn, .modal-header, .gradient-btn').forEach(el => {
                            el.style.background = `linear-gradient(135deg, ${colors[0]}, ${colors[1]})`;
                          });
-                         
+
                          openBtn.style.background = `linear-gradient(135deg, ${colors[0]}, ${colors[1]})`;
-                         
+
                          document.querySelectorAll('.tab-button.active').forEach(el => {
                            el.style.background = `linear-gradient(135deg, ${colors[1]}, ${colors[0]})`;
                          });
-                         
+
                          const gameCards = document.querySelectorAll('.game-card');
                          const sections = document.querySelectorAll('.section');
-                         
-                         if (avgBrightness > 180) {
+                         const sectionHeaders = document.querySelectorAll('.section-header');
+
+                         if (avgBrightness > 180) { // Light gradient
+                           // Calculate darker versions of the specific gradient colors for UI elements
                            const cardColor1 = adjustColorBrightness(colors[0], -25);
                            const cardColor2 = adjustColorBrightness(colors[1], -25);
-                           
+                           const sectionColor1 = adjustColorBrightness(colors[0], -15);
+                           const sectionColor2 = adjustColorBrightness(colors[1], -15);
+                           const headerColor1 = adjustColorBrightness(colors[0], -10);
+                           const headerColor2 = adjustColorBrightness(colors[1], -10);
+
                            gameCards.forEach(card => {
                              card.style.background = `linear-gradient(135deg, ${cardColor1}, ${cardColor2})`;
                            });
-                           
+
                            sections.forEach(section => {
-                             section.style.background = `linear-gradient(135deg, ${adjustColorBrightness(colors[0], -15)}, ${adjustColorBrightness(colors[1], -15)})`;
+                             section.style.background = `linear-gradient(135deg, ${sectionColor1}, ${sectionColor2})`;
                            });
-                           
-                           const textColor1 = mixWithBlack(colors[0], 70);
-                           const textColor2 = mixWithBlack(colors[1], 70);
-                           const textColor3 = mixWithBlack(colors[2], 70);
-                           
-                           mainTitle.style.background = `linear-gradient(to right, ${textColor1}, ${textColor2}, ${textColor3})`;
-                           mainTitle.classList.add('gradient-text');
-                           mainTitle.classList.remove('dark-text');
-                           
-                           document.body.style.color = textColor2;
+
+                           sectionHeaders.forEach(header => {
+                             header.style.background = `linear-gradient(135deg, ${headerColor1}, ${headerColor2})`;
+                           });
+
+                           // Use a dark text color, derived from the gradient
+                           const textColor = mixWithBlack(colors[1], 70); // Mix color2 with 70% black
+                           document.body.style.color = textColor;
+
                            document.querySelectorAll('.game-title, .game-desc, .subtitle, footer p').forEach(el => {
-                             el.style.color = textColor2;
+                             el.style.color = textColor;
                            });
-                           subtitleText.style.color = textColor2;
-                           footerText.style.color = textColor2;
-                           
+                           subtitleText.style.color = textColor;
+                           footerText.style.color = textColor;
+
                            document.querySelectorAll('.game-title i').forEach(icon => {
-                             icon.style.color = textColor2;
+                             icon.style.color = textColor;
                            });
-                           
-                         } else if (avgBrightness > 140) {
+
+                           // Apply subtle glow using the average gradient color
+                           document.querySelectorAll('.game-title, .game-desc, .subtitle, footer p, h1, .section-header').forEach(el => {
+                             el.style.textShadow = `0 0 5px ${glowColor}, 0 0 10px ${glowColor}`;
+                           });
+
+                         } else if (avgBrightness > 140) { // Medium-light gradient
                            const cardColor1 = adjustColorBrightness(colors[0], -15);
                            const cardColor2 = adjustColorBrightness(colors[1], -15);
-                           
+                           const sectionColor1 = adjustColorBrightness(colors[0], -8);
+                           const sectionColor2 = adjustColorBrightness(colors[1], -8);
+                           const headerColor1 = adjustColorBrightness(colors[0], -5);
+                           const headerColor2 = adjustColorBrightness(colors[1], -5);
+
                            gameCards.forEach(card => {
                              card.style.background = `linear-gradient(135deg, ${cardColor1}, ${cardColor2})`;
                            });
-                           
+
                            sections.forEach(section => {
-                             section.style.background = `linear-gradient(135deg, ${adjustColorBrightness(colors[0], -8)}, ${adjustColorBrightness(colors[1], -8)})`;
+                             section.style.background = `linear-gradient(135deg, ${sectionColor1}, ${sectionColor2})`;
                            });
-                           
-                           const textColor1 = mixWithBlack(colors[0], 40);
-                           const textColor2 = mixWithBlack(colors[1], 40);
-                           const textColor3 = mixWithBlack(colors[2], 40);
-                           
-                           mainTitle.style.background = `linear-gradient(to right, ${textColor1}, ${textColor2}, ${textColor3})`;
-                           mainTitle.classList.add('gradient-text');
-                           mainTitle.classList.remove('dark-text');
-                           
-                           document.body.style.color = textColor2;
+
+                           sectionHeaders.forEach(header => {
+                             header.style.background = `linear-gradient(135deg, ${headerColor1}, ${headerColor2})`;
+                           });
+
+                           const textColor = mixWithBlack(colors[1], 40); // Mix color2 with 40% black
+                           document.body.style.color = textColor;
+
                            document.querySelectorAll('.game-title, .game-desc, .subtitle, footer p').forEach(el => {
-                             el.style.color = textColor2;
+                             el.style.color = textColor;
                            });
-                           subtitleText.style.color = textColor2;
-                           footerText.style.color = textColor2;
-                           
+                           subtitleText.style.color = textColor;
+                           footerText.style.color = textColor;
+
                            document.querySelectorAll('.game-title i').forEach(icon => {
-                             icon.style.color = textColor2;
+                             icon.style.color = textColor;
                            });
-                           
-                         } else if (avgBrightness > 100) {
+
+                           document.querySelectorAll('.game-title, .game-desc, .subtitle, footer p, h1, .section-header').forEach(el => {
+                             el.style.textShadow = `0 0 5px ${glowColor}, 0 0 10px ${glowColor}`;
+                           });
+
+                         } else if (avgBrightness > 100) { // Medium-dark gradient
                            const cardColor1 = adjustColorBrightness(colors[0], -10);
                            const cardColor2 = adjustColorBrightness(colors[1], -10);
-                           
+                           const sectionColor1 = adjustColorBrightness(colors[0], -5);
+                           const sectionColor2 = adjustColorBrightness(colors[1], -5);
+                           const headerColor1 = adjustColorBrightness(colors[0], -2);
+                           const headerColor2 = adjustColorBrightness(colors[1], -2);
+
                            gameCards.forEach(card => {
                              card.style.background = `linear-gradient(135deg, ${cardColor1}, ${cardColor2})`;
                            });
-                           
+
                            sections.forEach(section => {
-                             section.style.background = `linear-gradient(135deg, ${adjustColorBrightness(colors[0], -5)}, ${adjustColorBrightness(colors[1], -5)})`;
+                             section.style.background = `linear-gradient(135deg, ${sectionColor1}, ${sectionColor2})`;
                            });
-                           
-                           const textColor1 = mixWithBlack(colors[0], 20);
-                           const textColor2 = mixWithBlack(colors[1], 20);
-                           const textColor3 = mixWithBlack(colors[2], 20);
-                           
-                           mainTitle.style.background = `linear-gradient(to right, ${textColor1}, ${textColor2}, ${textColor3})`;
-                           mainTitle.classList.add('gradient-text');
-                           mainTitle.classList.remove('dark-text');
-                           
-                           document.body.style.color = textColor2;
+
+                           sectionHeaders.forEach(header => {
+                             header.style.background = `linear-gradient(135deg, ${headerColor1}, ${headerColor2})`;
+                           });
+
+                           const textColor = mixWithBlack(colors[1], 20); // Mix color2 with 20% black
+                           document.body.style.color = textColor;
+
                            document.querySelectorAll('.game-title, .game-desc, .subtitle, footer p').forEach(el => {
-                             el.style.color = textColor2;
+                             el.style.color = textColor;
                            });
-                           subtitleText.style.color = textColor2;
-                           footerText.style.color = textColor2;
-                           
+                           subtitleText.style.color = textColor;
+                           footerText.style.color = textColor;
+
                            document.querySelectorAll('.game-title i').forEach(icon => {
-                             icon.style.color = textColor2;
+                             icon.style.color = textColor;
                            });
-                           
-                         } else {
+
+                           document.querySelectorAll('.game-title, .game-desc, .subtitle, footer p, h1, .section-header').forEach(el => {
+                             el.style.textShadow = `0 0 5px ${glowColor}, 0 0 10px ${glowColor}`;
+                           });
+
+                         } else { // Dark gradient
+                           // Calculate lighter versions of the specific gradient colors for UI elements
                            const cardColor1 = adjustColorBrightness(colors[0], 20);
                            const cardColor2 = adjustColorBrightness(colors[1], 20);
-                           
+                           const sectionColor1 = adjustColorBrightness(colors[0], 10);
+                           const sectionColor2 = adjustColorBrightness(colors[1], 10);
+                           const headerColor1 = adjustColorBrightness(colors[0], 5);
+                           const headerColor2 = adjustColorBrightness(colors[1], 5);
+
                            gameCards.forEach(card => {
                              card.style.background = `linear-gradient(135deg, ${cardColor1}, ${cardColor2})`;
                            });
-                           
+
                            sections.forEach(section => {
-                             section.style.background = `linear-gradient(135deg, ${adjustColorBrightness(colors[0], 10)}, ${adjustColorBrightness(colors[1], 10)})`;
+                             section.style.background = `linear-gradient(135deg, ${sectionColor1}, ${sectionColor2})`;
                            });
-                           
+
+                           sectionHeaders.forEach(header => {
+                             header.style.background = `linear-gradient(135deg, ${headerColor1}, ${headerColor2})`;
+                           });
+
+                           // Use white text for dark backgrounds
                            document.body.style.color = 'white';
+
                            document.querySelectorAll('.game-title, .game-desc, .subtitle, footer p').forEach(el => {
                              el.style.color = 'white';
                            });
+                           subtitleText.style.color = 'white';
+                           footerText.style.color = 'white';
+
                            mainTitle.classList.remove('gradient-text');
                            mainTitle.classList.remove('dark-text');
                            mainTitle.style.background = 'linear-gradient(to right, #d4afdd, #b19cd9, #9370db)';
-                           subtitleText.style.color = 'white';
-                           footerText.style.color = 'white';
-                           
+
                            document.querySelectorAll('.game-title i').forEach(icon => {
-                             icon.style.color = '#b19cd9';
+                             icon.style.color = '#b19cd9'; // Keep original color or adjust based on avgHex if needed
+                           });
+
+                           // Apply subtle glow using the average gradient color
+                           document.querySelectorAll('.game-title, .game-desc, .subtitle, footer p, h1, .section-header').forEach(el => {
+                             el.style.textShadow = `0 0 5px ${glowColor}, 0 0 10px ${glowColor}`;
                            });
                          }
-                         
+
                          localStorage.setItem('customGradient', JSON.stringify(colors));
                        }
-                       
+
                        function loadSavedGradient() {
                          const saved = localStorage.getItem('customGradient');
                          if (saved) {
@@ -428,7 +472,6 @@ function launchGame(gameUrl) {
                            colorInputs[1].value = colors[1];
                            colorInputs[2].value = colors[2];
                            applyGradient(colors);
-                           
                            gradientPresets.forEach(preset => {
                              const presetColors = JSON.parse(preset.getAttribute('data-colors'));
                              if (JSON.stringify(presetColors) === JSON.stringify(colors)) {
@@ -438,7 +481,7 @@ function launchGame(gameUrl) {
                            });
                          }
                        }
-                       
+
                        gradientPresets.forEach(preset => {
                          preset.addEventListener('click', () => {
                            gradientPresets.forEach(p => p.classList.remove('active'));
@@ -450,7 +493,7 @@ function launchGame(gameUrl) {
                            applyGradient(colors);
                          });
                        });
-                       
+
                        applyBtn.addEventListener('click', () => {
                          const colors = [
                            colorInputs[0].value,
@@ -460,7 +503,7 @@ function launchGame(gameUrl) {
                          gradientPresets.forEach(p => p.classList.remove('active'));
                          applyGradient(colors);
                        });
-                       
+
                        resetBtn.addEventListener('click', () => {
                          const defaultColors = ['#1a0a2e', '#2c0a47', '#1a0a2e'];
                          colorInputs[0].value = defaultColors[0];
@@ -471,8 +514,48 @@ function launchGame(gameUrl) {
                          applyGradient(defaultColors);
                          localStorage.removeItem('customGradient');
                        });
-   
+
                        window.addEventListener('load', loadSavedGradient);
+
+                       /* ---------- 8. cloaker ---------- */
+                       // Cloak settings
+                       const cloakSettings = {
+                         title: 'Google Classroom',
+                         favicon: 'https://www.google.com/favicon.ico'
+                       };
+
+                       // Apply cloaking
+                       function applyCloaking(title, favicon) {
+                         // Change title
+                         document.title = title;
+                         // Change favicon
+                         const existingFavicon = document.querySelector('link[rel="icon"]');
+                         if (existingFavicon) {
+                           existingFavicon.href = favicon;
+                         } else {
+                           const newFavicon = document.createElement('link');
+                           newFavicon.rel = 'icon';
+                           newFavicon.href = favicon;
+                           document.head.appendChild(newFavicon);
+                         }
+                       }
+
+                       // Apply cloaking on page load
+                       window.addEventListener('load', () => {
+                         applyCloaking(cloakSettings.title, cloakSettings.favicon);
+                       });
+
+                       // Apply custom cloaking when button is clicked
+                       document.getElementById('applyCloak').addEventListener('click', () => {
+                         const title = document.getElementById('cloakTitle').value;
+                         const favicon = document.getElementById('cloakFavicon').value;
+                         if(title && favicon) {
+                           applyCloaking(title, favicon);
+                           alert('Cloak applied successfully!');
+                         } else {
+                           alert('Please enter both title and favicon URL');
+                         }
+                       });
       </script>
    </body>
 </html>
