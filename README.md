@@ -1,6 +1,6 @@
 # 🎮 byzan.lol  
 byzan.lol is a free lightweight website that can be run from a singler html file with consistant updates almost everyday!
-How can byzan do it? byzan.lol can do this thanks to [maddox05](https://github.com/maddox05) 's ruffle player.
+How can byzan do it? byzan.lol can do this thanks to [maddox05](https://github.com/maddox05) 's ruffle player and just the internet really!
 
 ---
 
@@ -8,11 +8,12 @@ How can byzan do it? byzan.lol can do this thanks to [maddox05](https://github.c
 the *byzan.lol* Features!
 - [Lunar](https://github.com/davidspoofy/lunar) intergration where you can watch youtube videos soon!
 - 30+ Games!
-- Under 1.3k lines of code!
+- Under 500 lines of code!
 
 
 ## MIT License
-GitHub: `github.com/mrdavidss-vgg/byzanlol`  
+Main GitHub: `github.com/mrdavidss-vgg/byzanlol`  
+Updated Github : `github.com/justqnoo/byzanlol` 
 
 
 # URLS:
