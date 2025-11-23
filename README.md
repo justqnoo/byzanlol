@@ -13,11 +13,16 @@
 the *byzan.lol* Features!
 - Tab Cloaker
 - Customization (gradients)
-- 30+ Games!
+- 40+ Games!
 - Under 500 lines of code!
 
 # Credits
 ### maddox05 - lots of games (https://github.com/maddox05)
+### Ultimate Game Stash - lots of games (https://docs.google.com/document/d/1EvoJ4gFJ9IcAM4J2N50MaEy3pCvTWF1FWsgFQDvs_nY/edit?tab=t.2035hmt0pnes)
+### Github Games - founded all of the games on github
+### Griffpatch - Geometry dash Scratch
+### ndirmn3@github - hidden password javascript
+### IpInfo API - fetchs your ip to display on fake cloudflare block (WARNING: this does not log your ip address nor info.)
 
 ## MIT License
 Main GitHub: `github.com/mrdavidss-vgg/byzanlol`  
@@ -36,4 +41,4 @@ https://cdn-codehs-16854080.codehs.me/
 https://tencenttechnologies.edgeone.app/
 ```
 # Password
-How to access the site? A: click on the site then type "erer111" then press rightshift doesn work on ipads with virtual keyboards.
+How to access the site? A: click on the site then type "byzan.lol" then press rightshift doesn work on ipads with virtual keyboards.
