@@ -1,232 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUNcqSEzazM9S6NwrwIU6UM18w7ZBi9ND74w&s">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root{--glow:#9370db;--mid:#2c0a47;--active:#9370db}
-        *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
-        body{background:linear-gradient(135deg,#1a0a2e,#2c0a47,#1a0a2e);color:#fff;overflow-x:hidden;position:relative}
-        body::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 10% 20%,rgba(101,45,147,.15),transparent 30%),radial-gradient(circle at 90% 80%,rgba(101,45,147,.15),transparent 30%);pointer-events:none}
-        body::after{content:"";position:fixed;inset:0;background-image:radial-gradient(1px 1px at 10% 20%,#fff 50%,transparent 50%),radial-gradient(1px 1px at 20% 40%,#fff 50%,transparent 50%),radial-gradient(1px 1px at 35% 70%,#fff 50%,transparent 50%),radial-gradient(1px 1px at 50% 20%,#fff 50%,transparent 50%),radial-gradient(1px 1px at 70% 90%,#fff 50%,transparent 50%),radial-gradient(1px 1px at 90% 50%,#fff 50%,transparent 50%);background-size:15% 15%;animation:tw 8s ease-in-out infinite;opacity:.6}
-        @keyframes tw{0%,100%{opacity:.4}50%{opacity:.8}}
-        .shooting-star{position:fixed;height:1px;background:linear-gradient(90deg,transparent,#fff,transparent);filter:drop-shadow(0 0 4px #fff);pointer-events:none;opacity:0}
-        @keyframes shoot{0%{opacity:0;width:0}10%{opacity:1;width:4px}100%{opacity:0;width:80px}}
-        #openSettings{position:fixed;top:10px;left:10px;padding:8px 14px;border-radius:20px;border:1px solid rgba(147,112,219,.5);background:#2c0a4730;cursor:pointer;z-index:1000;font-weight:700;font-size:.9rem}
-        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:2000;justify-content:center;align-items:center}
-        .modal-content{max-width:90%;width:420px;border-radius:14px;overflow:hidden;border:2px solid rgba(147,112,219,.6);box-shadow:0 0 30px rgba(147,112,219,.6)}
-        .modal-header{display:flex}
-        .tab-button{flex:1;padding:12px;font-size:1rem;cursor:pointer;border:none;color:#fff;font-weight:600;position:relative}
-        .tab-button::after{content:'';position:absolute;bottom:0;left:50%;width:0;height:3px;background:var(--active);transition:.3s;transform:translateX(-50%)}
-        .tab-button.active::after{width:70%}
-        .tab-content{display:none;padding:20px;max-height:65vh;overflow-y:auto}
-        .tab-content.active{display:block}
-        .close-modal{position:absolute;top:8px;right:12px;font-size:2rem;cursor:pointer}
-        .gradient-controls{padding:15px}
-        .gradient-presets{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:15px}
-        .gradient-preset{height:50px;border-radius:10px;cursor:pointer;border:3px solid transparent;transition:.3s}
-        .gradient-preset.active{border-color:#fff}
-        .color-input{width:100%;height:45px;border-radius:10px;cursor:pointer}
-        .gradient-btn{padding:10px 16px;margin:8px 4px;border-radius:20px;border:1px solid rgba(147,112,219,.6);background:#2c0a4750;cursor:pointer;font-weight:600;transition:.3s}
-        .settings-box{background:rgba(50,25,70,.7);padding:15px;margin-top:15px;border-radius:12px;border:1px solid rgba(147,112,219,.5)}
-        .container{max-width:1100px;margin:auto;padding:15px;display:flex;flex-direction:column;min-height:100vh;z-index:2}
-        header{text-align:center;padding:30px 0 20px}
-        h1#mainTitle{font-size:3rem;font-weight:900;text-shadow:0 0 20px var(--glow),0 0 40px var(--glow)}
-        .subtitle{font-size:1.1rem;opacity:.9;margin-top:12px}
-        .section{border-radius:14px;overflow:hidden;margin-bottom:20px;border:1px solid rgba(147,112,219,.4);box-shadow:0 10px 30px rgba(0,0,0,.5)}
-        .section-header{padding:14px;font-size:1.4rem;font-weight:700;text-align:center;border-bottom:2px solid rgba(147,112,219,.5)}
-        .games-grid{padding:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
-        .game-card{border-radius:12px;padding:16px;cursor:pointer;transition:.4s;border:1px solid rgba(147,112,219,.4);text-align:center;position:relative;overflow:hidden}
-        .game-card:hover{transform:scale(1.05);box-shadow:0 15px 40px rgba(147,112,219,.6)}
-        .game-icon{width:80px;height:80px;object-fit:contain;border-radius:12px;border:3px solid rgba(255,255,255,.3);transition:.4s}
-        .game-card:hover .game-icon{border-color:var(--glow);box-shadow:0 0 20px var(--glow)}
-        .game-title{font-size:1.2rem;margin:10px 0;font-weight:700}
-        .game-desc{font-size:.9rem;opacity:.9;line-height:1.4}
-        footer{padding:20px;text-align:center;font-size:.9rem;border-top:1px solid rgba(147,112,219,.4);margin-top:auto}
-        @media(max-width:768px){
-            h1#mainTitle{font-size:2.4rem}
-            .games-grid{grid-template-columns:1fr}
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>byzan.lol</title>
+<link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUNcqSEzazM9S6NwrwIU6UM18w7ZBi9ND74w&s">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+:root{
+  --glow:#9370db;
+  --glow-r: 147;
+  --glow-g: 112;
+  --glow-b: 219;
+  --mid:#2c0a47;
+  --grad:linear-gradient(135deg,#1a0a2e,#2c0a47,#1a0a2e);
+  --text:#e0e0e0
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+html,body{height:100%;width:100%;overflow-x:hidden}
+body{background:var(--grad);color:var(--text);min-height:100vh;position:relative;transition:background .5s}
+body::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 10% 20%,rgba(101,45,147,.15),transparent 20%),radial-gradient(circle at 90% 80%,rgba(101,45,147,.15),transparent 20%),radial-gradient(circle at 50% 50%,rgba(101,45,147,.1),transparent 30%);z-index:-1}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(1.2px 1.2px at 10% 20%,#fff 50%,transparent 50%),radial-gradient(1.2px 1.2px at 15% 35%,#fff 50%,transparent 50%),radial-gradient(1.2px 1.2px at 25% 60%,#fff 50%,transparent 50%),radial-gradient(1.2px 1.2px at 30% 85%,#fff 50%,transparent 50%),radial-gradient(1.2px 1.2px at 40% 15%,#fff 50%,transparent 50%),radial-gradient(1.2px 1.2px at 45% 50%,#fff 50%,transparent 50%),radial-gradient(1.2px 1.2px at 55% 75%,#fff 50%,transparent 50%),radial-gradient(1.2px 1.2px at 60% 30%,#fff 50%,transparent 50%),radial-gradient(1.2px 1.2px at 65% 90%,#fff 50%,transparent 50%),radial-gradient(1.2px 1.2px at 70% 5%,#fff 50%,transparent 50%),radial-gradient(1.2px 1.2px at 75% 40%,#fff 50%,transparent 50%),radial-gradient(1.2px 1.2px at 80% 70%,#fff 50%,transparent 50%),radial-gradient(1.2px 1.2px at 85% 25%,#fff 50%,transparent 50%),radial-gradient(1.2px 1.2px at 90% 65%,#fff 50%,transparent 50%),radial-gradient(1.2px 1.2px at 95% 10%,#fff 50%,transparent 50%);background-size:20% 20%;animation:twinkle 5s ease-in-out infinite alternate,moveStars 60s linear infinite}
+.shooting-star{position:fixed;height:2px;background:linear-gradient(90deg,transparent,#fff,transparent);border-radius:50%;filter:drop-shadow(0 0 6px #fff);pointer-events:none;opacity:0;z-index:1}
+@keyframes twinkle{0%,100%{opacity:.7}50%{opacity:1}}
+@keyframes moveStars{0%{transform:translateY(0)}100%{transform:translateY(100px) rotate(2deg)}}
+@keyframes shoot{0%{transform:translate(0,0);opacity:0;width:0}10%{opacity:1;width:5px}100%{transform:translate(var(--tx),var(--ty));opacity:0;width:100px}}
+body,.section,.game-card,.modal-content,.warning-modal-content,.gradient-controls,.modal-header,.section-header,.gradient-btn,#openSettings,#viewPatchNotesBtn,.close-modal,.warning-close-btn,.settings-box,.patch-notes-list li{background:var(--grad)!important;transition:background .5s ease}
+.game-card{position:relative;overflow:hidden}
+.game-card::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(147,112,219,.2),transparent);transition:.5s;pointer-events:none}
+.game-card:hover::before{left:100%}
+.container{max-width:1200px;margin:0 auto;padding:20px;display:flex;flex-direction:column;min-height:100vh;z-index:2}
+header{text-align:center;padding:30px 0;margin-bottom:20px;border-bottom:2px solid rgba(255,255,255,.1)}
+h1{font-size:3.2rem;background:linear-gradient(to right,var(--glow),#b19cd9,var(--glow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 15px var(--glow)}
+.subtitle{font-size:1.3rem;opacity:.9;margin-top:15px;animation:pulse 3s infinite;color:var(--text)}
+.section{border-radius:15px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.4),0 0 20px var(--glow);border:1px solid var(--glow);animation:float 6s ease-in-out infinite}
+.section:hover{transform:translateY(-10px) scale(1.03)}
+.section-header{padding:18px;text-align:center;font-size:1.5rem;font-weight:600;border-bottom:2px solid var(--glow);text-shadow:0 0 10px var(--glow);color:var(--text)}
+.games-grid{padding:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:15px}
+/* Original game-card box-shadow using var(--glow) */
+.game-card{border-radius:12px;padding:18px;cursor:pointer;border:1px solid var(--glow);box-shadow:0 5px 15px rgba(0,0,0,.3),0 0 15px var(--glow);display:flex;flex-direction:column;align-items:center;min-height:220px}
+/* Hover game-card box-shadow using rgba with dynamic RGB variables */
+.game-card:hover{transform:scale(1.03);box-shadow:0 5px 20px rgba(var(--glow-r), var(--glow-g), var(--glow-b), .4),0 0 25px var(--glow)}
+.game-icon{width:100px;height:100px;object-fit:contain;border-radius:8px;border:2px solid rgba(255,255,255,.1);margin-bottom:12px}
+.game-title{font-size:1.2rem;font-weight:600;text-shadow:0 0 8px var(--glow);color:var(--text);margin:8px 0}
+.game-desc{font-size:.95rem;opacity:.85;text-align:center;color:var(--text)}
+footer{text-align:center;margin-top:auto;padding:25px;opacity:.8;border-top:1px solid var(--glow);color:var(--text)}
+footer{display:flex;justify-content:center;align-items:center;gap:10px;z-index:2}
+footer a{color:inherit;text-decoration:none;display:inline-block;transition:opacity .3s ease}
+footer a:hover{opacity:1}
+footer .fab.fa-github{font-size:1.2em}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:2000;justify-content:center;align-items:center}
+.modal-content{border-radius:15px;width:90%;max-width:800px;box-shadow:0 0 30px var(--glow);border:1px solid var(--glow);overflow:hidden}
+.modal-header{display:flex;border-bottom:2px solid var(--glow)}
+.tab-button{flex:1;padding:15px;background:var(--grad);border:1px solid rgba(147,112,219,.3);color:var(--text);font-size:1.1rem;cursor:pointer;transition:all .3s;box-shadow:0 0 5px var(--glow)}
+.tab-button.active{background:linear-gradient(to left,var(--mid),#1a0a2e);border-color:var(--glow)}
+.tab-button:hover:not(.active){background:linear-gradient(135deg,var(--mid),#3a1a57)}
+.tab-content{display:none;padding:25px;max-height:60vh;overflow-y:auto;background:rgba(30,15,50,.5)}
+.tab-content.active{display:block}
+.close-modal{position:absolute;top:15px;right:20px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(147,112,219,.3);font-size:2rem;display:flex;align-items:center;justify-content:center;color:var(--text);cursor:pointer;box-shadow:0 0 10px var(--glow)}
+.close-modal:hover{background:linear-gradient(135deg,var(--mid),#3a1a57)}
+.gradient-controls{border-radius:15px;padding:20px;margin-top:20px;border:1px solid var(--glow);box-shadow:0 0 15px var(--glow)}
+.gradient-presets{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:20px}
+.gradient-preset{height:60px;border-radius:10px;cursor:pointer;border:2px solid transparent;transition:all .3s}
+.gradient-preset:hover{transform:scale(1.05);border-color:#fff}
+.gradient-preset.active{border-color:var(--glow);border-width:3px}
+.warning-modal-content,.patch-notes-list li{background:var(--grad)!important;border-radius:12px;border-left:4px solid var(--glow);box-shadow:0 0 15px var(--glow)}
+.warning-modal-content{padding:20px;width:90%;max-width:500px;text-align:center}
+.warning-modal-content h3{margin-top:0;color:var(--glow);font-size:1.8rem;text-shadow:0 0 10px var(--glow),0 0 20px var(--glow)}
+.warning-close-btn,.gradient-btn,#viewPatchNotesBtn{background:var(--grad);border:1px solid var(--glow);color:var(--text);padding:10px 20px;border-radius:30px;cursor:pointer;box-shadow:0 0 10px var(--glow);transition:all .3s}
+.warning-close-btn:hover,.gradient-btn:hover,#viewPatchNotesBtn:hover{background:linear-gradient(135deg,var(--mid),#3a1a57)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+@keyframes pulse{0%,100%{opacity:.8}50%{opacity:1}}
+@media(max-width:768px){.games-grid{grid-template-columns:1fr}h1{font-size:2.5rem}}
+</style>
 </head>
 <body>
-    <button id="openSettings">⚙️ Settings</button>
 
-    <div id="settingsModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">×</span>
-            <div class="modal-header">
-                <button class="tab-button active" data-tab="settings">Settings</button>
-                <button class="tab-button" data-tab="gradient">Gradient</button>
-            </div>
+<button id="openSettings" style="position:fixed;top:20px;left:20px;padding:10px 15px;border-radius:30px;border:1px solid var(--glow);color:var(--text);cursor:pointer;z-index:1000;box-shadow:0 0 10px var(--glow)">Settings</button>
 
-            <div id="settingsTab" class="tab-content active">
-                <button id="viewPatchNotesBtn" class="gradient-btn" style="width:100%;padding:12px;font-size:1rem;">View Patch Notes</button>
-                <div id="patchNotesSection" class="settings-box" style="display:none;">
-                    <h3 style="text-align:center;margin-bottom:12px;">Patch Notes</h3>
-                    <div style="background:rgba(60,30,90,.7);padding:12px;border-radius:8px;border-left:4px solid var(--glow);">
-                        <strong style="color:#e0bbff">v1.3 - Nov 20, 2025</strong><br>• Polished UI<br>• Cloaker added
-                    </div>
-                </div>
-                <div class="settings-box">
-                    <h3 style="margin-bottom:10px;font-size:1.2rem">Cloaking</h3>
-                    <input type="text" id="cloakTitle" placeholder="Title (e.g. Google Classroom)" style="width:100%;padding:10px;margin:8px 0;border-radius:8px;background:#ffffff10;border:1px solid #9370db66;color:#fff;">
-                    <input type="text" id="cloakFavicon" placeholder="Favicon URL" style="width:100%;padding:10px;margin:8px 0;border-radius:8px;background:#ffffff10;border:1px solid #9370db66;color:#fff;">
-                    <button id="applyCloak" class="gradient-btn" style="width:100%;margin-top:12px;padding:12px;">Apply Cloak</button>
-                </div>
-            </div>
-
-            <div id="gradientTab" class="tab-content">
-                <div class="gradient-controls">
-                    <h3 style="text-align:center;margin-bottom:12px;font-size:1.3rem">Presets</h3>
-                    <div class="gradient-presets">
-                        <div class="gradient-preset active" style="background:linear-gradient(135deg,#1a0a2e,#2c0a47,#1a0a2e)" data-colors='["#1a0a2e","#2c0a47","#1a0a2e"]'></div>
-                        <div class="gradient-preset" style="background:linear-gradient(135deg,#0f4c75,#3282b8,#0f4c75)" data-colors='["#0f4c75","#3282b8","#0f4c75"]'></div>
-                        <div class="gradient-preset" style="background:linear-gradient(135deg,#1b4332,#2d6a4f,#1b4332)" data-colors='["#1b4332","#2d6a4f","#1b4332"]'></div>
-                        <div class="gradient-preset" style="background:linear-gradient(135deg,#5a189a,#9d4edd,#5a189a)" data-colors='["#5a189a","#9d4edd","#5a189a"]'></div>
-                        <div class="gradient-preset" style="background:linear-gradient(135deg,#b23a48,#ff6b6b,#b23a48)" data-colors='["#b23a48","#ff6b6b","#b23a48"]'></div>
-                        <div class="gradient-preset" style="background:linear-gradient(135deg,#ff9a8b,#ff6b6b,#ff9a8b)" data-colors='["#ff9a8b","#ff6b6b","#ff9a8b"]'></div>
-                    </div>
-                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:15px 0;">
-                        <input type="color" class="color-input" id="color1" value="#1a0a2e">
-                        <input type="color" class="color-input" id="color2" value="#2c0a47">
-                        <input type="color" class="color-input" id="color3" value="#1a0a2e">
-                    </div>
-                    <div style="display:flex;gap:10px;">
-                        <button class="gradient-btn" id="applyGradient" style="flex:1;">Apply</button>
-                        <button class="gradient-btn" id="resetGradient" style="flex:1;">Reset</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div id="settingsModal" class="modal">
+  <div class="modal-content">
+    <button class="close-modal">x</button>
+    <div class="modal-header">
+      <button class="tab-button active" data-tab="settings">Settings</button>
+      <button class="tab-button" data-tab="gradient">Gradient Customization</button>
     </div>
-   
-   <div id="warningModal" class="modal">
-        <div class="modal-content" style="text-align:center;padding:30px;">
-            <h3 style="font-size:2.2rem;margin-bottom:15px;">V1.3</h3>
-            <p style="font-size:1.2rem;">+ Cloaker</p>
-            <p style="font-size:1.2rem;">+ Compact & Polished UI</p>
-            <button class="gradient-btn" onclick="document.getElementById('warningModal').style.display='none'" style="margin-top:20px;padding:12px 40px;">Close</button>
-        </div>
+    <div id="settingsTab" class="tab-content active">
+      <button id="viewPatchNotesBtn">View Patch Notes</button>
+      <div id="patchNotesSection" style="display:none;margin-top:20px">
+        <h3>Patch Notes</h3>
+        <ul class="patch-notes-list">
+          <li><strong>v1.2 – Nov 22nd, 2025</strong><br>fixed the @ss  + fixed games + </li>
+          <li><strong>v1.1 – Nov 13th, 2025</strong><br>Added Space Waves + Custom Gradients</li>
+          <li><strong>v1 – Nov 10th, 2025</strong><br>Initial release</li>
+        </ul>
+      </div>
+      <div style="margin-top:20px;padding:15px;border:1px solid var(--glow);border-radius:12px">
+        <h3>byzan cloaker V0.1</h3>
+        <input type="text" id="cloakTitle" placeholder="Title (e.g. Google Classroom)" style="width:100%;padding:10px;margin:8px 0;border-radius:8px;background:rgba(255,255,255,0.1);border:1px solid var(--glow);color:var(--text)">
+        <input type="text" id="cloakFavicon" placeholder="Favicon URL" style="width:100%;padding:10px;margin:8px 0;border-radius:8px;background:rgba(255,255,255,0.1);border:1px solid var(--glow);color:var(--text)">
+        <button id="applyCloak" class="gradient-btn" style="width:100%;margin-top:12px;padding:12px">Apply Cloaker v0.1</button>
+      </div>
     </div>
-
-    <div class="container">
-        <header>
-            <h1 id="mainTitle">byzan.lol</h1>
-            <p class="subtitle">One-click classroom access</p>
-        </header>
-        <div class="section">
-            <div class="section-header">Educational Classes</div>
-            <div id="gamesGrid" class="games-grid"></div>
+    <div id="gradientTab" class="tab-content">
+      <div class="gradient-controls">
+        <h3>Gradient Presets</h3>
+        <div class="gradient-presets">
+          <div class="gradient-preset active" style="background:linear-gradient(135deg,#1a0a2e,#2c0a47,#1a0a2e)" data-colors='["#1a0a2e","#2c0a47","#1a0a2e"]'></div>
+          <div class="gradient-preset" style="background:linear-gradient(135deg,#0f4c75,#3282b8,#0f4c75)" data-colors='["#0f4c75","#3282b8","#0f4c75"]'></div>
+          <div class="gradient-preset" style="background:linear-gradient(135deg,#1b4332,#2d6a4f,#1b4332)" data-colors='["#1b4332","#2d6a4f","#1b4332"]'></div>
+          <div class="gradient-preset" style="background:linear-gradient(135deg,#5a189a,#9d4edd,#5a189a)" data-colors='["#5a189a","#9d4edd","#5a189a"]'></div>
+          <div class="gradient-preset" style="background:linear-gradient(135deg,#b23a48,#ff6b6b,#b23a48)" data-colors='["#b23a48","#ff6b6b","#b23a48"]'></div>
+          <div class="gradient-preset" style="background:linear-gradient(135deg,#1a1a2e,#16213e,#1a1a2e)" data-colors='["#1a1a2e","#16213e","#1a1a2e"]'></div>
+          <div class="gradient-preset" style="background:linear-gradient(135deg,#ff9a8b,#ff6b6b,#ff9a8b)" data-colors='["#ff9a8b","#ff6b6b","#ff9a8b"]'></div>
+          <div class="gradient-preset" style="background:linear-gradient(135deg,#a8e6cf,#56ab91,#a8e6cf)" data-colors='["#a8e6cf","#56ab91","#a8e6cf"]'></div>
+          <div class="gradient-preset" style="background:linear-gradient(135deg,#ffd93d,#ff9a8b,#ffd93d)" data-colors='["#ffd93d","#ff9a8b","#ffd93d"]'></div>
         </div>
-        <footer>byzan.lol © 2025</footer>
+        <h3>Custom Gradients</h3>
+        <div class="color-picker-group">
+          <div style="text-align:center"><label>Color 1</label><input type="color" id="color1" value="#1a0a2e"></div>
+          <div style="text-align:center"><label>Color 2</label><input type="color" id="color2" value="#2c0a47"></div>
+          <div style="text-align:center"><label>Color 3</label><input type="color" id="color3" value="#1a0a2e"></div>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:center;margin-top:15px">
+          <button id="applyGradient" class="gradient-btn">Apply Gradient</button>
+          <button id="resetGradient" class="gradient-btn">Reset</button>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 
-    <script>
-// fixi
-       fetch('https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/games.json')
-            .then(r => r.json())
-            .then(data => {
-                const grid = document.getElementById('gamesGrid');
-                data.forEach(g => {
-                    const card = document.createElement('div');
-                    card.className = 'game-card';
-                    card.onclick = () => launchGame(g.url);
-                    card.innerHTML = `<img src="${g.image}" class="game-icon" alt="${g.name}">
-                                      <div class="game-title">${g.name}</div>
-                                      <div class="game-desc">${g.description}</div>`;
-                    grid.appendChild(card);
-                });
-            });
+<div id="warningModal" class="modal">
+  <div class="warning-modal-content">
+    <h2>Update V1.2</h2>
+    <p>Added <strong>Time shooter 3 SWAT</strong></p>
+    <p>Fixed Gradients</p>
+    <p>Polished CSS (i hate css)</p>
+    <p><small><strong>November 20th, 2025</small></strong></p>
+    <button class="warning-close-btn">Thank you!</button>
+  </div>
+</div>
 
-        function launchGame(url) {
-            const win = window.open('about:blank', '_blank');
-            fetch(url).then(r => r.text()).then(html => {
-                win.document.write(`<!DOCTYPE html><html><head><title>${document.title}</title><link rel="icon" href="${document.querySelector('link[rel="icon"]').href}"></head><body>${html}</body></html>`);
-            });
-        }
+<div class="container">
+  <header>
+    <h1>byzan.lol</h1>
+    <p class="subtitle">Collection of Classes.</p>
+  </header>
+  <div class="game-sections">
+    <div class="section">
+      <div class="section-header">Educational Classes</div>
+      <div id="gamesGrid" class="games-grid"></div>
+    </div>
+  </div>
+  <footer>
+    <p>byzan.lol</p>
+    <a href="https://github.com/justqnoo/byzanlol" target="_blank" aria-label="GitHub Repo">
+      <i class="fab fa-github"></i>
+    </a>
+  </footer>
+  </div>
 
-        document.getElementById('openSettings').onclick = () => document.getElementById('settingsModal').style.display = 'flex';
-        document.querySelector('.close-modal').onclick = () => document.getElementById('settingsModal').style.display = 'none';
-        document.querySelectorAll('.tab-button').forEach(b => b.onclick = () => {
-            document.querySelectorAll('.tab-button').forEach(x => x.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
-            b.classList.add('active');
-            document.getElementById(b.dataset.tab + 'Tab').classList.add('active');
-        });
-        window.onclick = e => { if (e.target.classList.contains('modal')) e.target.style.display = 'none'; };
+<script>
+let gamesData=[];
+fetch('https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/games.json')
+  .then(r=>r.json())
+  .then(d=>{gamesData=d;generateGameCards();});
 
-        document.getElementById('viewPatchNotesBtn').onclick = () => {
-            const s = document.getElementById('patchNotesSection');
-            s.style.display = s.style.display === 'block' ? 'none' : 'block';
-        };
+function generateGameCards(){
+  const grid=document.getElementById('gamesGrid');
+  grid.innerHTML='';
+  gamesData.forEach(g=>{
+    const card=document.createElement('div');
+    card.className='game-card';
+    card.onclick=()=>launchGame(g.url);
+    card.innerHTML=`
+      <img src="${g.image}" alt="${g.name}" class="game-icon">
+      <div class="game-title">${g.name}</div>
+      <div class="game-desc">${g.description}</div>`;
+    grid.appendChild(card);
+  });
+}
 
-        function createShootingStar() {
-            const s = document.createElement('div'); s.className = 'shooting-star';
-            const x = Math.random() * innerWidth;
-            const y = Math.random() * innerHeight * 0.3;
-            s.style.left = x + 'px'; s.style.top = y + 'px';
-            s.style.setProperty('--tx', (Math.random() - 0.5) * 800 + 'px');
-            s.style.setProperty('--ty', (Math.random() * 300 + 200) + 'px');
-            s.style.animation = `shoot ${1.5 + Math.random()}s linear forwards`;
-            document.body.appendChild(s);
-            setTimeout(() => s.remove(), 3000);
-        }
-        setInterval(createShootingStar, 800);
+function launchGame(url){
+  const win=window.open('about:blank','_blank');
+  fetch(url).then(r=>r.text()).then(html=>{
+    win.document.open();
+    win.document.write(`<!DOCTYPE html><head><title>Loading...</title><link rel="icon" href="${document.querySelector('link[rel="icon"]').href}"></head><body>${html}</body></html>`);
+    win.document.close();
+  }).catch(()=>win.location=url);
+}
 
-        const presets = document.querySelectorAll('.gradient-preset');
-        const inputs = [document.getElementById('color1'), document.getElementById('color2'), document.getElementById('color3')];
+function hexToRgb(hex) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}
 
-        function applyGradient(colors) {
-            const grad = `linear-gradient(135deg,${colors.join(',')})`;
-            const glow = colors.reduce((a,c) => {
-                const rgb = parseInt(c.slice(1),16);
-                a.r += (rgb>>16); a.g += (rgb>>8)&255; a.b += rgb&255;
-                return a;
-            }, {r:0,g:0,b:0});
-            const avg = `#${((glow.r/3)<<16 | (glow.g/3)<<8 | glow.b/3).toString(16).padStart(6,'0')}`;
-            document.documentElement.style.setProperty('--glow', avg);
-            document.documentElement.style.setProperty('--mid', colors[1]);
-            document.documentElement.style.setProperty('--active', colors[1]);
-            document.body.style.background = grad;
-            document.querySelectorAll('.modal-content,.section,.game-card,.settings-box').forEach(el => el.style.background = grad);
-            localStorage.setItem('customGradient', JSON.stringify(colors));
-        }
+function applyGradient(c){
+  const grad=`linear-gradient(135deg,${c.join(',')})`;
+  document.documentElement.style.setProperty('--grad',grad);
 
-        function loadSaved() {
-            const saved = localStorage.getItem('customGradient');
-            if (saved) {
-                const c = JSON.parse(saved);
-                inputs.forEach((i,idx) => i.value = c[idx]);
-                applyGradient(c);
-            }
-        }
+  const glowColor = c[1] || '#9370db';
+  document.documentElement.style.setProperty('--glow', glowColor);
 
-        presets.forEach(p => p.onclick = () => {
-            presets.forEach(x => x.classList.remove('active')); p.classList.add('active');
-            const c = JSON.parse(p.dataset.colors);
-            inputs.forEach((i,idx) => i.value = c[idx]);
-            applyGradient(c);
-        });
+  const rgb = hexToRgb(glowColor);
+  if (rgb) {
+    document.documentElement.style.setProperty('--glow-r', rgb.r);
+    document.documentElement.style.setProperty('--glow-g', rgb.g);
+    document.documentElement.style.setProperty('--glow-b', rgb.b);
+  }
 
-        document.getElementById('applyGradient').onclick = () => applyGradient(inputs.map(i => i.value));
-        document.getElementById('resetGradient').onclick = () => {
-            presets[0].click();
-            localStorage.removeItem('customGradient');
-        };
-        document.getElementById('applyCloak').onclick = () => {
-            const title = document.getElementById('cloakTitle').value || 'Google Classroom';
-            const icon = document.getElementById('cloakFavicon').value || 'https://classroom.google.com/favicon.ico';
-            document.title = title;
-            let link = document.querySelector('link[rel="icon"]') || document.createElement('link');
-            link.rel = 'icon'; link.href = icon;
-            if (!document.head.contains(link)) document.head.appendChild(link);
-        };
+  document.documentElement.style.setProperty('--mid', glowColor);
 
-        window.onload = () => { loadSaved(); document.getElementById('warningModal').style.display = 'flex'; };
-    </script>
+  document.querySelectorAll('body,.section,.game-card,.modal-content,.warning-modal-content,.gradient-controls,.modal-header,.section-header,.gradient-btn,#openSettings,#viewPatchNotesBtn,.close-modal,.warning-close-btn,.settings-box,.patch-notes-list li').forEach(el=>el.style.background=grad);
+  localStorage.setItem('customGradient',JSON.stringify(c));
+}
+
+window.addEventListener('load',()=>{
+  const s=localStorage.getItem('customGradient');
+  if(s){
+    const c=JSON.parse(s);
+    document.getElementById('color1').value=c[0];
+    document.getElementById('color2').value=c[1];
+    document.getElementById('color3').value=c[2];
+    applyGradient(c);
+  } else {
+
+    const defaultColors = ['#1a0a2e', '#2c0a47', '#1a0a2e'];
+    applyGradient(defaultColors);
+  }
+  document.getElementById('warningModal').style.display='flex';
+});
+
+document.querySelectorAll('.gradient-preset').forEach(p=>{
+  p.onclick=()=>{document.querySelectorAll('.gradient-preset').forEach(x=>x.classList.remove('active'));p.classList.add('active');
+    const c=JSON.parse(p.dataset.colors);
+    document.getElementById('color1').value=c[0];
+    document.getElementById('color2').value=c[1];
+    document.getElementById('color3').value=c[2];
+    applyGradient(c);
+  };
+});
+
+document.getElementById('applyGradient').onclick=()=>{
+  const c=[document.getElementById('color1').value,document.getElementById('color2').value,document.getElementById('color3').value];
+  document.querySelectorAll('.gradient-preset').forEach(x=>x.classList.remove('active'));
+  applyGradient(c);
+};
+
+document.getElementById('resetGradient').onclick=()=>{
+  const d=['#1a0a2e','#2c0a47','#1a0a2e'];
+  ['color1','color2','color3'].forEach((id,i)=>document.getElementById(id).value=d[i]);
+  document.querySelectorAll('.gradient-preset')[0].classList.add('active');
+  applyGradient(d);
+  localStorage.removeItem('customGradient');
+};
+
+document.getElementById('openSettings').onclick=()=>document.getElementById('settingsModal').style.display='flex';
+document.querySelector('.close-modal').onclick=()=>document.getElementById('settingsModal').style.display='none';
+window.onclick=e=>{if(e.target.id==='settingsModal')document.getElementById('settingsModal').style.display='none';};
+
+document.querySelectorAll('.tab-button').forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll('.tab-button').forEach(b=>{b.classList.remove('active');b.style.background='var(--grad)';});
+    document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab+'Tab').classList.add('active');
+  };
+});
+
+document.getElementById('viewPatchNotesBtn').onclick=()=>{
+  const s=document.getElementById('patchNotesSection');
+  s.style.display=s.style.display==='block'?'none':'block';
+  document.getElementById('viewPatchNotesBtn').textContent=s.style.display==='block'?'Hide Patch Notes':'View Patch Notes';
+};
+
+document.getElementById('applyCloak').onclick=()=>{
+  const t=document.getElementById('cloakTitle').value||'Google Classroom';
+  const i=document.getElementById('cloakFavicon').value||'https://classroom.google.com/favicon.ico';
+  document.title=t;
+  let l=document.querySelector('link[rel="icon"]');
+  if(!l){l=document.createElement('link');l.rel='icon';document.head.appendChild(l);}
+  l.href=i;
+};
+
+document.querySelector('.warning-close-btn').onclick=()=>{document.getElementById('warningModal').style.display='none';};
+
+function createShootingStar(){
+  const s=document.createElement('div');
+  s.className='shooting-star';
+  const side=Math.floor(Math.random()*4);
+  let x1,y1,x2,y2;
+  if(side===0){x1=Math.random()*innerWidth;y1=0;x2=x1+(Math.random()-.5)*600;y2=innerHeight;}
+  else if(side===1){x1=innerWidth;y1=Math.random()*innerHeight;x2=0;y2=y1+(Math.random()-.5)*600;}
+  else if(side===2){x1=Math.random()*innerWidth;y1=innerHeight;x2=x1+(Math.random()-.5)*600;y2=0;}
+  else{x1=0;y1=Math.random()*innerHeight;x2=innerWidth;y2=y1+(Math.random()-.5)*600;}
+  s.style.left=x1+'px';s.style.top=y1+'px';
+  s.style.setProperty('--tx',(x2-x1)+'px');
+  s.style.setProperty('--ty',(y2-y1)+'px');
+  s.style.animation=`shoot ${1+Math.random()*1.5}s ease-out forwards`;
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),2000);
+}
+setInterval(createShootingStar,750);
+</script>
 </body>
 </html>
