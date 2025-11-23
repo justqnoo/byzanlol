@@ -14,7 +14,8 @@ the *byzan.lol* Features!
 ## MIT License
 Main GitHub: `github.com/mrdavidss-vgg/byzanlol`  
 Updated Github : `github.com/justqnoo/byzanlol` 
-
+justqnoo (davids school acc)
+mrdavidss-vgg (my non school acc)
 
 # URLS:
 ```html
