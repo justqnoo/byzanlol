@@ -13,7 +13,7 @@
 the *byzan.lol* Features!
 - Tab Cloaker
 - Customization (gradients)
-- 40+ Games!
+- 50 Games!
 - Under 500 lines of code!
 
 # Credits
