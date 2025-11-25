@@ -296,7 +296,7 @@
   {
     "name": "Pizza Tower",
     "description": "The Class of Pizza Tower",
-    "image": "https://static.wikia.nocookie.net/pizzatower/images/2/24/Pizza_Tower_logo.png/revision/latest/thumbnail/width/360/height/360?cb=20210525073624",
+    "image": "https://i.ytimg.com/vi/kab-fOsrq_Q/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCzpxNIcsorE-5I5IWrmPl0I2nHNg",
     "url": "https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/g4mes/pizzatower.html"
   },
   {
@@ -304,5 +304,11 @@
     "description": "The Class of Infinite Craft",
     "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/8b/Infinite-craft.svg/1200px-Infinite-craft.svg.png",
     "url": "https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/g4mes/infinitecraft.html"
+  },
+  {
+    "name": "Friday Night Funkin",
+    "description": "The Class of Friday Night Funkin",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo6yH267BfmmcCC6nLyZhPe1xn32BEssBZhAedwhF76QDVH4GO",
+    "url": "https://raw.githubusercontent.com/justqnoo/byzanlol/refs/heads/main/g4mes/fnf.html"
   }
 ]
