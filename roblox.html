@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Roblox Embed</title>
+
+<style>
+html,body{
+  margin:0;
+  height:100%;
+  background:#000;
+}
+
+#container{
+  width:100%;
+  height:100%;
+  position:relative;
+}
+
+iframe{
+  width:100%;
+  height:100%;
+  border:none;
+}
+
+#fsbtn{
+  position:absolute;
+  top:6px;
+  right:6px;
+  width:18px;
+  height:18px;
+  background:#000;
+  border:1px solid #222;
+  cursor:pointer;
+  opacity:0.6;
+}
+
+#fsbtn:hover{
+  opacity:1;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <iframe src="https://nowgg.fun/apps/a/19900/b.html"></iframe>
+  <div id="fsbtn" title="Fullscreen"></div>
+</div>
+
+<script>
+const btn = document.getElementById("fsbtn");
+const container = document.getElementById("container");
+
+btn.onclick = () => {
+  if (!document.fullscreenElement) {
+    container.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+};
+</script>
+
+</body>
+</html>
